@@ -1,0 +1,68 @@
+Dexter - a simple app for experimenting with writing Ruby extensions using its C API in D programming language.
+
+(D EXTension En Ruby)
+
+Files:
+dexter.c - C prototype of what should work (to see how it should work in C)
+dexter_tester_c.rb - a test suite for the above C prototype
+dexter.d - current state of experimental Dexter app
+dexter_tester.rb - a test suite for the above experimental D application
+
+Current state of affairs:
+
+tomek@tomek-asus-f80s:~/ruby_apps/rudy/dexter$ ruby dexter_tester.rb
+./dexter.so: [BUG] Segmentation fault
+ruby 1.8.7 (2008-08-11 patchlevel 72) [i486-linux]
+
+GDB session:
+
+tomek@tomek-asus-f80s:~/ruby_apps/rudy/dexter$ gdb ruby
+GNU gdb 6.8-debian                                     
+Copyright (C) 2008 Free Software Foundation, Inc.      
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.           
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"   
+and "show warranty" for details.                                             
+This GDB was configured as "i486-linux-gnu"...                               
+(no debugging symbols found)                                                 
+
+(gdb) r -rdexter_tester -e 'p 1'                                       
+Starting program: /usr/bin/ruby -rdexter_tester -e 'p 1'               
+(no debugging symbols found)                                           
+(no debugging symbols found)                                           
+(no debugging symbols found)                                           
+(no debugging symbols found)                                           
+[Thread debugging using libthread_db enabled]                          
+(no debugging symbols found)                                           
+(no debugging symbols found)                                           
+(no debugging symbols found)                                           
+(no debugging symbols found)                                           
+[New Thread 0xb7da5b70 (LWP 30729)]                                    
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0xb7da5b70 (LWP 30729)]
+0xb8017ae9 in ?? () from /usr/lib/libruby1.8.so.1.8
+
+(gdb) bt
+#0  0xb8017ae9 in ?? () from /usr/lib/libruby1.8.so.1.8
+#1  0xb8017946 in st_lookup () from /usr/lib/libruby1.8.so.1.8
+#2  0xb7feaf32 in rb_intern () from /usr/lib/libruby1.8.so.1.8
+#3  0xb7f98202 in rb_define_method () from /usr/lib/libruby1.8.so.1.8
+#4  0xb7d4d1e0 in Init_dexter () at dexter.d:15
+#5  0xb7f9da96 in dln_load () from /usr/lib/libruby1.8.so.1.8
+#6  0xb7fbf9dc in rb_require_safe () from /usr/lib/libruby1.8.so.1.8
+#7  0xb7fbfd29 in rb_f_require () from /usr/lib/libruby1.8.so.1.8
+#8  0xb7fa701b in ?? () from /usr/lib/libruby1.8.so.1.8
+#9  0xb7fb287e in ?? () from /usr/lib/libruby1.8.so.1.8
+#10 0xb7fb2a1a in ?? () from /usr/lib/libruby1.8.so.1.8
+#11 0xb7fad141 in ?? () from /usr/lib/libruby1.8.so.1.8
+#12 0xb7fbf53a in rb_load () from /usr/lib/libruby1.8.so.1.8
+#13 0xb7fbfb76 in rb_require_safe () from /usr/lib/libruby1.8.so.1.8
+#14 0xb7fbfcf4 in rb_require () from /usr/lib/libruby1.8.so.1.8
+#15 0xb7fa8a61 in rb_protect () from /usr/lib/libruby1.8.so.1.8
+#16 0xb80127af in ?? () from /usr/lib/libruby1.8.so.1.8
+#17 0xb8013b5f in ?? () from /usr/lib/libruby1.8.so.1.8
+#18 0xb8013e6f in ruby_process_options () from /usr/lib/libruby1.8.so.1.8
+#19 0xb7fb7874 in ruby_options () from /usr/lib/libruby1.8.so.1.8
+#20 0x08048708 in main ()
+(gdb)
