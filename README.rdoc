@@ -8,9 +8,11 @@ Because even native extensions should be written in a modern and pro-productive 
 == Elements
 
 Currently contains:
-bcd - ruby.d converted from ruby.h using bcd.gen
-ruby - .d files (also from ruby.h) pieces from rubyd (http://code.google.com/p/rubyd/) project by cpunion
-dexter - an application for testing and experimenting with (now) binding and (later) library
+1. bcd - ruby.d converted from ruby.h using bcd.gen
+2. ruby - .d files (also from ruby.h) pieces from rubyd (http://code.google.com/p/rubyd/) project by cpunion
+3. dexter - an application for testing and experimenting with (now) binding and (later) library
+
+See README files in each of the subdirs for explanation and further info.
 
 == Plans and aims
 
