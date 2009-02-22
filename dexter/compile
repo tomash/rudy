@@ -1,3 +1,0 @@
-#quick hack for compiling dexter.d with ruby D files
-
-gdc -shared -o dexter.so -g -g dexter.d ../ruby/c/ruby.d ../ruby/c/common.d ../ruby/c/st.d ../ruby/c/regex.d ../ruby/c/rubyio.d ../ruby/c/node.d -fPIC -lruby1.8 -L. -L/usr/lib -lm -lc -I../
