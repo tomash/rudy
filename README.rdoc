@@ -8,11 +8,15 @@ Because even native extensions should be written in a modern and pro-productive 
 == Elements
 
 Currently contains:
-1. bcd - ruby.d converted from ruby.h using bcd.gen
-2. ruby - .d files (also from ruby.h) pieces from rubyd (http://code.google.com/p/rubyd/) project by cpunion
-3. dexter - an application for testing and experimenting with (now) binding and (later) library
+* bcd - ruby.d converted from ruby.h using bcd.gen
+* ruby - .d files (also from ruby.h) pieces from rubyd (http://code.google.com/p/rubyd/) project by cpunion
+* dexter - an application for testing and experimenting with (now) binding and (later) library
 
 See README files in each of the subdirs for explanation and further info.
+
+== Current state
+
+Ruby.d (bcd/Ruby/ruby.d) file and dexter_bcd.d in a state that compiles, runs and passes tests. Working (proved) ruby C functions: rb_define_class, rb_define_module, rb_define_method.
 
 == Plans and aims
 
@@ -21,9 +25,9 @@ See README files in each of the subdirs for explanation and further info.
 3. Create PyD (http://pyd.dsource.org/) equivalent for Ruby.
 
 == Authors:
-Tomasz Stachewicz - developer
-Kirk McDonald - lots of help and advice on D and interaction with Ruby, original author of PyD
-Ray C. Horn and "cpunion" - inspiration
+* Tomasz Stachewicz - developer
+* Kirk McDonald - lots of help and advice on D and interaction with Ruby, original author of PyD
+* Ray C. Horn and "cpunion" - inspiration
 
 == Post Scriptum
 Cpunion! If you're reading this, please contact me (Tomasz Stachewicz) on email tomekrs@o2.pl. I belive I stumbled upon your blog, but in... Chinese, and while learned Mandarin a bit, I couldn't figure out a way to contact you.
