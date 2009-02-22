@@ -26,8 +26,8 @@ Ruby.d (bcd/Ruby/ruby.d) file and dexter_bcd.d in a state that compiles, runs an
 
 == Authors:
 * Tomasz Stachewicz - developer
-* Kirk McDonald - lots of help and advice on D and interaction with Ruby, original author of PyD
-* Ray C. Horn and "cpunion" - inspiration
+* Kirk McDonald - lots of help and advice on D and interaction with Ruby, original author of PyD (http://pyd.dsource.org/)
+* Ray C. Horn (from http://www.pypi.info/) and "cpunion" (author of http://code.google.com/p/rubyd/) - inspiration
 
 == Post Scriptum
 Cpunion! If you're reading this, please contact me (Tomasz Stachewicz) on email tomekrs@o2.pl. I belive I stumbled upon your blog, but in... Chinese, and while learned Mandarin a bit, I couldn't figure out a way to contact you.

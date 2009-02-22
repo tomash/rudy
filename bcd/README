@@ -1,4 +1,6 @@
 ABOUT
 
-D files generated with bcd.gen (by Gregor Richards - http://www.codu.org/):
+D files generated from ruby.h with bcd.gen (by Gregor Richards - http://www.codu.org/):
 http://www.dsource.org/projects/bcd
+
+And modified here-and-there for compatibility and working as expected.
