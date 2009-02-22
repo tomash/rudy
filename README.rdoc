@@ -1,0 +1,27 @@
+= RuDy 
+
+An effort / library / gem ? to enable and ease writing Ruby native extensions in D programming language.
+
+== Why?
+Because even native extensions should be written in a modern and pro-productive language. While still being close-to-the-metal and C-fast.
+
+== Elements
+
+Currently contains:
+bcd - ruby.d converted from ruby.h using bcd.gen
+ruby - .d files (also from ruby.h) pieces from rubyd (http://code.google.com/p/rubyd/) project by cpunion
+dexter - an application for testing and experimenting with (now) binding and (later) library
+
+== Plans and aims
+
+1. Generate complete and working .d files (based on ruby.h) for writing Ruby extensions in D.
+2. Extend extconf.rb to recognize and generate makefiles (maybe also dsss config files) for extensions written in D.
+3. Create PyD (http://pyd.dsource.org/) equivalent for Ruby.
+
+== Authors:
+Tomasz Stachewicz - developer
+Kirk McDonald - lots of help and advice on D and interaction with Ruby, original author of PyD
+Ray C. Horn and "cpunion" - inspiration
+
+== Post Scriptum
+Cpunion! If you're reading this, please contact me (Tomasz Stachewicz) on email tomekrs@o2.pl. I belive I stumbled upon your blog, but in... Chinese, and while learned Mandarin a bit, I couldn't figure out a way to contact you.
