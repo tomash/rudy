@@ -5,7 +5,7 @@ import bcd.Ruby.ruby;
 
 alias VALUE(*func_type)();
 // Prototype for our method 'test1' - methods are prefixed by 'method_' here
-VALUE method_return_ten(...);
+extern (C) VALUE method_return_ten();
 extern (C) VALUE Dexter = 0;
 
 
@@ -16,7 +16,7 @@ extern (C) void Init_dexter() {
 }
 
 // Our 'test1' method.. it simply returns a value of '10' for now.
-ulong method_return_ten(VALUE self, ...) {
+extern (C) ulong method_return_ten(VALUE self) {
   int x = 10;
   //return INT2NUM(x);
   return rb_int2inum(x);
