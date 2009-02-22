@@ -5,11 +5,13 @@ Dexter - a simple app for experimenting with writing Ruby extensions using its C
 Files:
 dexter.c - C prototype of what should work (to see how it should work in C)
 dexter_tester_c.rb - a test suite for the above C prototype
-dexter.d - current state of experimental Dexter app
+dexter_bcd.d - current state of experimental Dexter app using BCD-generated ruby.d
+dexter_rubyd.d - current state of experimental Dexter app using RuDy's ruby.d
+compile.bcd, compile.rubyd - compiling shell-scripts for, respectively, dexter_bcd.d and dexter_rubyd.d
 dexter_tester.rb - a test suite for the above experimental D application
 
 Current state of affairs:
 
-rb_define_method works as in "available from Ruby and passes tests" works
+Using dexter_bcd.d: rb_define_method works as in "available from Ruby and passes tests" works. Yes!
 
-Getting it on to work with other method definition functions.
+Moving to to getting Dexter to work with other method definition functions.
