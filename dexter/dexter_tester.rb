@@ -7,7 +7,9 @@ class DexterTester < Test::Unit::TestCase
   def test_module_defined_properly
     assert_equal(DexterClass.class, Class)
     assert_equal(DexterClass.superclass, Object)
-    assert_equal(DexterClass.new.return_ten, 10)
+    d = DexterClass.new
+    assert_equal(d.return_ten, 10)
+    assert_equal(d.arr, [])
     
     assert_equal(DexterModule.class, Module)
     assert_equal(DexterModule::return_ten, 10)
