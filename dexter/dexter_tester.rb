@@ -10,6 +10,9 @@ class DexterTester < Test::Unit::TestCase
     d = DexterClass.new
     assert_equal(d.return_ten, 10)
     assert_equal(d.arr, [])
+    d.add(1)
+    d.add(2)
+    assert_equal(d.arr, [1,2])
     
     assert_equal(DexterModule.class, Module)
     assert_equal(DexterModule::return_ten, 10)
