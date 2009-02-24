@@ -1443,6 +1443,8 @@ extern (C) int clock();
 extern (C) uint rb_equal(uint, uint);
 extern (C) int rb_proc_exec(char *);
 extern (C) uint rb_int2inum(int);
+alias rb_int2inum INT2NUM;
+
 extern (C) long strtoll_l(char *, char * *, int, __locale_struct *);
 extern (C) int pthread_rwlock_trywrlock(pthread_rwlock_t *);
 extern (C) uint rb_reg_match(uint, uint);

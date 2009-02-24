@@ -13,6 +13,8 @@ class DexterTester < Test::Unit::TestCase
     d.add(1)
     d.add(2)
     assert_equal(d.arr, [1,2])
+    d.native_add(22)
+    assert_equal(d.arr, [1,2, 22])
     
     assert_equal(DexterModule.class, Module)
     assert_equal(DexterModule::return_ten, 10)
