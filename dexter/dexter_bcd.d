@@ -10,6 +10,7 @@ extern (C) VALUE class_init();
 extern (C) VALUE class_arr();
 extern (C) VALUE class_add();
 extern (C) VALUE class_native_add();
+extern (C) VALUE class_add_strings_first_letter();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -57,6 +58,21 @@ extern (C) VALUE class_native_add(VALUE self, VALUE obj)
   return arr;
 }
 
+extern (C) VALUE class_add_strings_first_letter(VALUE self, VALUE obj)
+{
+  /* conversion: */
+  VALUE str = rb_string_value(&obj);
+  RString str_struct;
+  //dirty trick to force casting ulong onto RString
+  str_struct = *(cast(RString*)&str);
+  VALUE toadd = rb_str_new(str_struct.ptr, 1);
+  
+  VALUE arr = rb_iv_get(self, "@arr");
+  rb_funcall(arr, id_push, 1, toadd);
+  
+  return toadd;
+}
+
 
 // The initialization method for this module
 extern (C) void Init_dexter() {
@@ -66,6 +82,7 @@ extern (C) void Init_dexter() {
   rb_define_method(DexterClass, "arr".ptr, &class_arr, 0);
   rb_define_method(DexterClass, "add".ptr, &class_add, 1);
   rb_define_method(DexterClass, "native_add".ptr, &class_native_add, 1);
+  rb_define_method(DexterClass, "add_strings_first_letter".ptr, &class_add_strings_first_letter, 1);
   
   id_push = rb_intern("push");
   

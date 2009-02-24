@@ -1879,10 +1879,10 @@ int capa;
 uint shared;
 }
 struct RString {
-RBasic basic;
-int len;
-char * ptr;
-N7RString4__25E aux;
+  RBasic basic;
+  int len;
+  char * ptr;
+  N7RString4__25E aux;
 }
 struct div_t {
 int quot;

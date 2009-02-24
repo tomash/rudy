@@ -15,6 +15,9 @@ class DexterTester < Test::Unit::TestCase
     assert_equal(d.arr, [1,2])
     d.native_add(22)
     assert_equal(d.arr, [1,2, 22])
+    d.add_strings_first_letter("showtime!")
+    d.add_strings_first_letter("tratatata")
+    assert_equal([1,2, 22,"s","t"], d.arr)
     
     assert_equal(DexterModule.class, Module)
     assert_equal(DexterModule::return_ten, 10)
