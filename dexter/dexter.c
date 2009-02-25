@@ -34,10 +34,8 @@ static VALUE t_native_add(VALUE self, VALUE obj)
 static VALUE t_add_string_first_letter(VALUE self, VALUE obj)
 {
   /* conversion: */
-  
   VALUE str = StringValue(obj);
   char *p = RSTRING(str)->ptr;
-  /* p = StringValuePtr(obj) */
   VALUE toadd = rb_str_new(p, 1);
   
   VALUE arr = rb_iv_get(self, "@arr");
