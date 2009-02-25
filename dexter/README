@@ -12,6 +12,6 @@ dexter_tester.rb - a test suite for the above experimental D application
 
 Current state of affairs:
 
-Using dexter_bcd.d: rb_define_method works as in "available from Ruby and passes tests" works. Yes!
+Check out project's main README for list of working and successfully used (and with test coverage) Ruby API methods.
 
 Moving to to getting Dexter to work with other method definition functions.
