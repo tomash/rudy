@@ -800,7 +800,6 @@ extern (C) int pthread_getschedparam(uint, int *, sched_param *);
 extern (C) void rb_thread_signal_exit();
 extern (C) char * rb_source_filename(char *);
 extern (C) uint rb_big_divmod(uint, uint);
-extern (C) uint rb_ll2inum(long);
 alias int function(...) _BCD_func__1836;
 extern (C) void st_foreach_safe(void *, _BCD_func__1836, uint);
 extern (C) int pthread_mutexattr_getprotocol(pthread_mutexattr_t *, int *);
@@ -1188,7 +1187,6 @@ extern (C) uint rb_io_gets(uint);
 extern (C) int rb_str_cmp(uint, uint);
 extern (C) int pthread_cond_broadcast(pthread_cond_t *);
 extern (C) uint rb_str_resize(uint, int);
-extern (C) uint rb_ull2inum(ulong);
 extern (C) uint rb_gv_set(char *, uint);
 extern (C) uint rb_io_ungetc(uint, uint);
 extern (C) uint rb_define_class(char *, uint);
@@ -1477,9 +1475,9 @@ extern (C) int clock();
 extern (C) uint rb_equal(uint, uint);
 extern (C) int rb_proc_exec(char *);
 
-VALUE INT2FIX(i)
+VALUE INT2FIX(long i)
 {
-  return ((VALUE)(((uint)(i))<<1 | FIXNUM_FLAG));
+  return (cast(VALUE)((cast(uint)i)<<1 | FIXNUM_FLAG));
 }
 alias INT2FIX LONG2FIX;
 alias INT2FIX rb_fix_new;
@@ -1499,10 +1497,10 @@ alias rb_ll2inum LL2NUM;
 extern (C) uint rb_ull2inum(ulong);
 alias rb_ull2inum ULL2NUM;
 
-if(SIZEOF_OFF_T > SIZEOF_LONG && HAVE_LONG_LONG)
+//if(SIZEOF_OFF_T > SIZEOF_LONG && HAVE_LONG_LONG)
   alias LL2NUM OFFT2NUM;
-else
-  alias INT2NUM OFFT2NUM;
+//else
+//  alias INT2NUM OFFT2NUM;
 
 
 extern (C) long strtoll_l(char *, char * *, int, __locale_struct *);
