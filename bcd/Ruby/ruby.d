@@ -854,52 +854,28 @@ VALUE StringValue(VALUE obj)
   return rb_string_value(&obj);
 }
 
-//obj here is a pointer to RString struct, not an actual integer
-//we differ here a bit from original ruby.h by returning actual structure (e.g. RString), not pointer (e.g. RString*)
-//this is transparent to the programmer, as in D syntactic is the same (struct.field)
+//(of course) obj here is a pointer to RString struct, not an actual integer
+//using struct and struct*: this is transparent to the programmer, as in D syntactic is the same (struct.field)
+
+//template equivalent of:
 //#define R_CAST(st)   (struct st*)
-RBasic RBASIC(VALUE obj)
-{
-  RBasic* str_struct = cast(RBasic*)obj;
-  return *str_struct;
-}
-RObject ROBJECT(VALUE obj)
-{
-  RObject* str_struct = cast(RObject*)obj;
-  return *str_struct;
-}
-RClass RCLASS(VALUE obj)
-{
-  RClass* str_struct = cast(RClass*)obj;
-  return *str_struct;
-}
-RClass RMODULE(VALUE obj)
-{
-  return RCLASS(obj);
-}
-RFloat RFLOAT(VALUE obj)
-{
-  RFloat* str_struct = cast(RFloat*)obj;
-  return *str_struct;
+T* RCAST(T)(VALUE obj) {
+  return cast(T*)obj;
 }
 
-RString RSTRING(VALUE obj)
-{
-  RString* str_struct = cast(RString*)obj;
-  return *str_struct;
-}
-
-/*
-#define RREGEXP(obj) (R_CAST(RRegexp)(obj))
-#define RARRAY(obj)  (R_CAST(RArray)(obj))
-#define RHASH(obj)   (R_CAST(RHash)(obj))
-#define RDATA(obj)   (R_CAST(RData)(obj))
-#define RSTRUCT(obj) (R_CAST(RStruct)(obj))
-#define RBIGNUM(obj) (R_CAST(RBignum)(obj))
-#define RFILE(obj)   (R_CAST(RFile)(obj))
-*/
-
-
+alias RCAST!(RBasic) RBASIC;
+alias RCAST!(RObject) ROBJECT;
+alias RCAST!(RClass) RCLASS;
+alias RCLASS RMODULE;
+alias RCAST!(RFloat) RFLOAT;
+alias RCAST!(RString) RSTRING;
+alias RCAST!(RRegexp) RREGEXP;
+alias RCAST!(RArray) RARRAY;
+alias RCAST!(RHash) RHASH;
+alias RCAST!(RData) RDATA;
+alias RCAST!(RStruct) RSTRUCT;
+alias RCAST!(RBignum) RBIGNUM;
+alias RCAST!(RFile) RFILE;
 
 /*RString StringValue(uint obj)
 {

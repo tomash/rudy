@@ -68,7 +68,7 @@ extern (C) VALUE class_add_strings_first_letter(VALUE self, VALUE obj)
   //VALUE str = rb_string_value(&obj);
   //RString* str_struct = cast(RString*)str; // where str is a VALUE
   VALUE str = StringValue(obj); 
-  RString str_struct = RSTRING(str);
+  RString* str_struct = RSTRING(str);
   VALUE toadd = rb_str_new(str_struct.ptr, 1);
   
   VALUE arr = rb_iv_get(self, "@arr");
