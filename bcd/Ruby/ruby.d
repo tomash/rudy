@@ -1043,7 +1043,6 @@ extern (C) int pthread_rwlock_rdlock(pthread_rwlock_t *);
 extern (C) int getdate_r(char *, tm *);
 extern (C) int clock_getres(int, timespec *);
 extern (C) int rb_reg_options(uint);
-extern (C) uint rb_uint2inum(uint);
 extern (C) int sched_get_priority_max(int);
 extern (C) void ruby_set_current_source();
 extern (C) uint rb_str_inspect(uint);
@@ -1477,8 +1476,23 @@ extern (C) int pthread_mutex_consistent_np(pthread_mutex_t *);
 extern (C) int clock();
 extern (C) uint rb_equal(uint, uint);
 extern (C) int rb_proc_exec(char *);
+
+VALUE INT2FIX(i)
+{
+  return ((VALUE)(((uint)(i))<<1 | FIXNUM_FLAG));
+}
+alias INT2FIX LONG2FIX;
+alias INT2FIX rb_fix_new;
+
 extern (C) uint rb_int2inum(int);
 alias rb_int2inum INT2NUM;
+alias INT2NUM LONG2NUM;
+alias rb_int2inum rb_int_new;
+
+extern (C) uint rb_uint2inum(uint);
+alias rb_uint2inum UINT2NUM;
+alias UINT2NUM ULONG2NUM;
+alias rb_uint2inum rb_uint_new;
 
 extern (C) long strtoll_l(char *, char * *, int, __locale_struct *);
 extern (C) int pthread_rwlock_trywrlock(pthread_rwlock_t *);

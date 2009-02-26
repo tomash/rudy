@@ -17,6 +17,17 @@ extern (C) VALUE module_throw_a_fatal();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
+//toStringz from phobos - where is this in Tango?
+//DO NOT pass strings to C functions without calling this function on passed D string
+char* cstr(string input)
+{
+  return (input ~ \0).ptr;
+}
+/* NOTE: below in function calls untouched D string (wchar[]) literals
+are passed to C functions; this is because string literals (i.e. declared fully in code)
+are 0-terminated and are therefore "safe"; this is NOT a practice to follow, so code refactoring
+may be appropiate */
+
 int id_push;
 
 // Our 'test1' method.. it simply returns a value of '10' for now.
@@ -105,18 +116,18 @@ extern (C) VALUE module_throw_a_fatal(VALUE self)
 // The initialization method for this module
 extern (C) void Init_dexter() {
   DexterClass = rb_define_class("DexterClass", rb_cObject);
-  rb_define_method(DexterClass, "return_ten".ptr, &method_return_ten, 0);
-  rb_define_method(DexterClass, "initialize".ptr, &class_init, 0);
-  rb_define_method(DexterClass, "arr".ptr, &class_arr, 0);
-  rb_define_method(DexterClass, "add".ptr, &class_add, 1);
-  rb_define_method(DexterClass, "native_add".ptr, &class_native_add, 1);
-  rb_define_method(DexterClass, "add_strings_first_letter".ptr, &class_add_strings_first_letter, 1);
-  rb_define_method(DexterClass, "duplicate_a_string_and_add_it_two_times".ptr, &class_duplicate_a_string_and_add_it_two_times, 1);
+  rb_define_method(DexterClass, "return_ten", &method_return_ten, 0);
+  rb_define_method(DexterClass, "initialize", &class_init, 0);
+  rb_define_method(DexterClass, "arr", &class_arr, 0);
+  rb_define_method(DexterClass, "add", &class_add, 1);
+  rb_define_method(DexterClass, "native_add", &class_native_add, 1);
+  rb_define_method(DexterClass, "add_strings_first_letter", &class_add_strings_first_letter, 1);
+  rb_define_method(DexterClass, "duplicate_a_string_and_add_it_two_times", &class_duplicate_a_string_and_add_it_two_times, 1);
   
   id_push = rb_intern("push");
   
   DexterModule = rb_define_module("DexterModule");
-  rb_define_module_function(DexterModule, "return_ten".ptr, &method_return_ten, 0);
-  rb_define_module_function(DexterModule, "throw_an_exception".ptr, &module_throw_an_exception, 0);
-  rb_define_module_function(DexterModule, "throw_a_fatal".ptr, &module_throw_a_fatal, 0);
+  rb_define_module_function(DexterModule, "return_ten", &method_return_ten, 0);
+  rb_define_module_function(DexterModule, "throw_an_exception", &module_throw_an_exception, 0);
+  rb_define_module_function(DexterModule, "throw_a_fatal", &module_throw_a_fatal, 0);
 }
