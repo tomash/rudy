@@ -20,7 +20,7 @@ Ruby.d (bcd/Ruby/ruby.d) file and dexter_bcd.d in a state that compiles, runs an
 * rb_define_class, rb_define_method
 * rb_define_module, rb_define_module_function
 * rb_intern, rb_funcall
-* rb_num2long, rb_int2inum
+* rb_num2long, rb_int2inum and assorted number-types functions
 * rb_iv_get, rb_iv_set
 * rb_string_value, rb_str_new, rb_str_dup, rb_str_modify
 * StringValue, RSTRING (and other R-casts)

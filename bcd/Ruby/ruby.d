@@ -1494,6 +1494,17 @@ alias rb_uint2inum UINT2NUM;
 alias UINT2NUM ULONG2NUM;
 alias rb_uint2inum rb_uint_new;
 
+extern (C) uint rb_ll2inum(long);
+alias rb_ll2inum LL2NUM; 
+extern (C) uint rb_ull2inum(ulong);
+alias rb_ull2inum ULL2NUM;
+
+if(SIZEOF_OFF_T > SIZEOF_LONG && HAVE_LONG_LONG)
+  alias LL2NUM OFFT2NUM;
+else
+  alias INT2NUM OFFT2NUM;
+
+
 extern (C) long strtoll_l(char *, char * *, int, __locale_struct *);
 extern (C) int pthread_rwlock_trywrlock(pthread_rwlock_t *);
 extern (C) uint rb_reg_match(uint, uint);
