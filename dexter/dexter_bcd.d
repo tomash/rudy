@@ -11,6 +11,7 @@ extern (C) VALUE class_arr();
 extern (C) VALUE class_add();
 extern (C) VALUE class_native_add();
 extern (C) VALUE class_add_strings_first_letter();
+extern (C) VALUE module_throw_an_exception();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -73,6 +74,12 @@ extern (C) VALUE class_add_strings_first_letter(VALUE self, VALUE obj)
   return toadd;
 }
 
+extern (C) VALUE module_throw_an_exception(VALUE self)
+{
+  rb_raise(rb_eArgError, "ArgumentError exception raised by Dexter.");
+  return self;
+}
+
 
 // The initialization method for this module
 extern (C) void Init_dexter() {
@@ -88,4 +95,5 @@ extern (C) void Init_dexter() {
   
   DexterModule = rb_define_module("DexterModule");
   rb_define_module_function(DexterModule, "return_ten".ptr, &method_return_ten, 0);
+  rb_define_module_function(DexterModule, "throw_an_exception".ptr, &module_throw_an_exception, 0);
 }
