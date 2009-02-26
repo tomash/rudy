@@ -849,12 +849,24 @@ extern (C) int vsnprintf(char *, uint, char *, char *);
 extern (C) void setbuf(_IO_FILE *, char *);
 extern (C) uint rb_str_intern(uint);
 extern (C) uint rb_string_value(uint *);
-RString StringValue(uint obj)
+VALUE StringValue(VALUE obj)
+{
+  return rb_string_value(&obj);
+}
+
+//obj here is a pointer to RString struct, not an actual integer
+RString RSTRING(VALUE obj)
+{
+  RString* str_struct = cast(RString*)obj;
+  return *str_struct;
+}
+
+/*RString StringValue(uint obj)
 {
   VALUE tmp = rb_string_value(&obj);
   RString* str_struct = cast(RString*)tmp;
   return *str_struct;
-}
+}*/
 
 extern (C) uint rb_hash_freeze(uint);
 extern (C) uint rb_eval_string_wrap(char *, int *);
