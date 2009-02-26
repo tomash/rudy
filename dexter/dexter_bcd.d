@@ -60,9 +60,11 @@ extern (C) VALUE class_native_add(VALUE self, VALUE obj)
 
 extern (C) VALUE class_add_strings_first_letter(VALUE self, VALUE obj)
 {
-  /* conversion: */
-  VALUE str = rb_string_value(&obj);
-  RString* str_struct = cast(RString*)str; // where str is a VALUE
+  // conversion:
+  //obsolete - use convenient and implemented StringValue
+  //VALUE str = rb_string_value(&obj);
+  //RString* str_struct = cast(RString*)str; // where str is a VALUE
+  RString str_struct = StringValue(obj);
   VALUE toadd = rb_str_new(str_struct.ptr, 1);
   
   VALUE arr = rb_iv_get(self, "@arr");
