@@ -20,6 +20,16 @@ class DexterTester < Test::Unit::TestCase
     assert_equal([1,2, 22,"s","t"], d.arr)
   end
   
+  def test_string_duplication
+    d = DexterClass.new
+    str = "somestring"
+    d.duplicate_a_string_and_add_it_two_times(str)
+    assert_equal([str, str], d.arr)
+    #first is without modification (plain dup), second is after rb_str_modify
+    assert_not_same(str, d.arr[0])
+    assert_not_same(str, d.arr[1])
+  end
+  
   def test_module_and_its_methods
     assert_equal(DexterModule.class, Module)
     assert_equal(DexterModule::return_ten, 10)

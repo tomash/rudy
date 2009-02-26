@@ -11,6 +11,7 @@ extern (C) VALUE class_arr();
 extern (C) VALUE class_add();
 extern (C) VALUE class_native_add();
 extern (C) VALUE class_add_strings_first_letter();
+extern (C) VALUE class_duplicate_a_string_and_add_it_two_times();
 extern (C) VALUE module_throw_an_exception();
 extern (C) VALUE module_throw_a_fatal();
 extern (C) VALUE DexterClass = 0;
@@ -75,6 +76,18 @@ extern (C) VALUE class_add_strings_first_letter(VALUE self, VALUE obj)
   return toadd;
 }
 
+extern (C) VALUE class_duplicate_a_string_and_add_it_two_times(VALUE self, VALUE obj)
+{
+  //check duplication (rb_str_dup) and separating data (rb_str_modify)
+  VALUE arr = rb_iv_get(self, "@arr");
+  VALUE toadd = rb_str_dup(obj);
+  rb_funcall(arr, id_push, 1, toadd);
+  toadd = rb_str_dup(obj);
+  rb_str_modify(toadd);
+  rb_funcall(arr, id_push, 1, toadd);
+  return toadd;
+}
+
 extern (C) VALUE module_throw_an_exception(VALUE self)
 {
   rb_raise(rb_eArgError, "ArgumentError exception raised by Dexter.");
@@ -97,6 +110,7 @@ extern (C) void Init_dexter() {
   rb_define_method(DexterClass, "add".ptr, &class_add, 1);
   rb_define_method(DexterClass, "native_add".ptr, &class_native_add, 1);
   rb_define_method(DexterClass, "add_strings_first_letter".ptr, &class_add_strings_first_letter, 1);
+  rb_define_method(DexterClass, "duplicate_a_string_and_add_it_two_times".ptr, &class_duplicate_a_string_and_add_it_two_times, 1);
   
   id_push = rb_intern("push");
   
