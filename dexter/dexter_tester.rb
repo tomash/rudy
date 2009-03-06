@@ -30,6 +30,13 @@ class DexterTester < Test::Unit::TestCase
     assert_not_same(str, d.arr[1])
   end
   
+  def test_string_concatenation
+    d = DexterClass.new
+    str = "I haz bin catted!"
+    str2 = d.str_cat(str)
+    assert(str2.index(str))
+  end
+  
   def test_module_and_its_methods
     assert_equal(DexterModule.class, Module)
     assert_equal(DexterModule::return_ten, 10)
@@ -37,5 +44,7 @@ class DexterTester < Test::Unit::TestCase
       DexterModule::throw_an_exception
     end
   end
+  
+  
   
 end

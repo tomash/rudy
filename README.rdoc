@@ -22,7 +22,7 @@ Ruby.d (bcd/Ruby/ruby.d) file and dexter.d in a state that compiles, runs and pa
 * rb_intern, rb_funcall
 * rb_num2long, rb_int2inum and assorted number-types functions
 * rb_iv_get, rb_iv_set
-* rb_string_value, rb_str_new, rb_str_dup, rb_str_modify
+* rb_string_value, rb_str_new, rb_str_dup, rb_str_modify, rb_str_buf_cat
 * StringValue, RSTRING (and other R-casts)
 * rb_ary_new
 * rb_raise, rb_fatal

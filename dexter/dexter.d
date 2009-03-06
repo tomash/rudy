@@ -12,6 +12,7 @@ extern (C) VALUE class_add();
 extern (C) VALUE class_native_add();
 extern (C) VALUE class_add_strings_first_letter();
 extern (C) VALUE class_duplicate_a_string_and_add_it_two_times();
+extern (C) VALUE class_str_cat();
 extern (C) VALUE module_throw_an_exception();
 extern (C) VALUE module_throw_a_fatal();
 extern (C) VALUE DexterClass = 0;
@@ -19,9 +20,13 @@ extern (C) VALUE DexterModule = 0;
 
 //toStringz from phobos - where is this in Tango?
 //DO NOT pass strings to C functions without calling this function on passed D string
-char* cstr(string input)
+
+//goddamit, Im confused:
+//http://www.digitalmars.com/d/1.0/interfaceToC.html
+//ruby api functions operating on C strings segfault when passing a (pointer to) string with ~ \0
+extern (C) char* cstr(string input)
 {
-  return (input ~ \0).ptr;
+  return input.ptr;
 }
 /* NOTE: below in function calls untouched D string (wchar[]) literals
 are passed to C functions; this is because string literals (i.e. declared fully in code)
@@ -100,12 +105,21 @@ extern (C) VALUE class_duplicate_a_string_and_add_it_two_times(VALUE self, VALUE
   return toadd;
 }
 
+extern (C) VALUE class_str_cat(VALUE self, VALUE obj)
+{
+  string tocat = "I haz bin catted!";
+  VALUE catted = rb_str_buf_cat(obj, tocat.ptr, tocat.length);
+  return catted;
+}
+
 extern (C) VALUE module_throw_an_exception(VALUE self)
 {
   rb_raise(rb_eArgError, "ArgumentError exception raised by Dexter.");
   return self;
 }
 
+// not covered with unit tests for obvious reason
+// works anyway
 extern (C) VALUE module_throw_a_fatal(VALUE self)
 {
   rb_fatal("Fatal Error caused by Dexter.");
@@ -123,6 +137,7 @@ extern (C) void Init_dexter() {
   rb_define_method(DexterClass, "native_add", &class_native_add, 1);
   rb_define_method(DexterClass, "add_strings_first_letter", &class_add_strings_first_letter, 1);
   rb_define_method(DexterClass, "duplicate_a_string_and_add_it_two_times", &class_duplicate_a_string_and_add_it_two_times, 1);
+  rb_define_method(DexterClass, "str_cat", &class_str_cat, 1);
   
   id_push = rb_intern("push");
   

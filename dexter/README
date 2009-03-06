@@ -14,3 +14,10 @@ Current state of affairs:
 Check out project's main README for list of working and successfully used (and with test coverage) Ruby API methods.
 
 Moving to to getting Dexter to work with other method definition functions.
+
+Debugging native extension with GDB:
+gdb ruby
+(gdb) set li 32
+(gdb) r -rShare -e 'p 1'
+Starting program: /usr/local/bin/ruby -rShare -e 'p 1'
+
