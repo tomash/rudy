@@ -16,7 +16,7 @@ See README files in each of the subdirs for explanation and further info.
 
 == Current state
 
-Ruby.d (bcd/Ruby/ruby.d) file and dexter_bcd.d in a state that compiles, runs and passes tests. Working (proved) ruby C functions: 
+Ruby.d (bcd/Ruby/ruby.d) file and dexter.d in a state that compiles, runs and passes tests. Working (proved) ruby C functions: 
 * rb_define_class, rb_define_method
 * rb_define_module, rb_define_module_function
 * rb_intern, rb_funcall
@@ -27,6 +27,7 @@ Ruby.d (bcd/Ruby/ruby.d) file and dexter_bcd.d in a state that compiles, runs an
 * rb_ary_new
 * rb_raise, rb_fatal
 
+dexter_rubyd.d and associated files removed - this stuff isn't working for me (segfaulting at runtime/require time), so they're git-rm'ed.
 
 == Plans and aims
 
