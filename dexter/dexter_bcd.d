@@ -1,4 +1,4 @@
-module rubyd.dexter;
+module rudy.dexter;
 
 import bcd.Ruby.ruby;
 //import ruby.c.ruby;
