@@ -1,4 +1,4 @@
 #quick hack for compiling dexter.d with ruby D files
 #version using bcd-generated .d files
 
-gdc -shared -o dexter.so -g -g dexter.d ../bcd/Ruby/ruby.d -fPIC -lruby1.8 -L. -L/usr/lib -lm -lc -I../
+gdc -shared -o dexter.so -g -g dexter.d ../bcd/ruby.d -fPIC -lruby1.8 -L. -L/usr/lib -lm -lc -I../

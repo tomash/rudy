@@ -1,6 +1,7 @@
 module rudy.dexter;
 
-import bcd.Ruby.ruby;
+import bcd.ruby;
+import rudy.rudyobject;
 //import ruby.c.ruby;
 
 alias VALUE(*func_type)();
