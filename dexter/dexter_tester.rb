@@ -37,6 +37,14 @@ class DexterTester < Test::Unit::TestCase
     assert(str2.index(str))
   end
   
+  def test_rudyobject
+    d = DexterClass.new
+    d.add(1)
+    d.add(2)
+    f = d.get_arr_first_and_add_ten
+    assert_equal(f, 11)
+  end
+  
   def test_module_and_its_methods
     assert_equal(DexterModule.class, Module)
     assert_equal(DexterModule::return_ten, 10)

@@ -16,6 +16,7 @@ extern (C) VALUE class_duplicate_a_string_and_add_it_two_times();
 extern (C) VALUE class_str_cat();
 extern (C) VALUE module_throw_an_exception();
 extern (C) VALUE module_throw_a_fatal();
+extern (C) VALUE get_arr_first_and_add_ten();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -128,6 +129,19 @@ extern (C) VALUE module_throw_a_fatal(VALUE self)
 }
 
 
+extern (C) VALUE get_arr_first_and_add_ten(VALUE self)
+{
+  bcd.ruby.printf("starting the method\n");
+  
+  RudyObject rudy_el = new RudyObject(rb_iv_get(self, "@arr[0]"));
+  
+  bcd.ruby.printf("initialized object, returning");
+  
+  //return rb_int2inum(rudy_el.to_i + 10);
+  return rb_int2inum(11);
+}
+
+
 // The initialization method for this module
 extern (C) void Init_dexter() {
   DexterClass = rb_define_class("DexterClass", rb_cObject);
@@ -139,6 +153,7 @@ extern (C) void Init_dexter() {
   rb_define_method(DexterClass, "add_strings_first_letter", &class_add_strings_first_letter, 1);
   rb_define_method(DexterClass, "duplicate_a_string_and_add_it_two_times", &class_duplicate_a_string_and_add_it_two_times, 1);
   rb_define_method(DexterClass, "str_cat", &class_str_cat, 1);
+  rb_define_method(DexterClass, "get_arr_first_and_add_ten", &get_arr_first_and_add_ten, 0);
   
   id_push = rb_intern("push");
   
