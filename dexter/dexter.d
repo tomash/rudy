@@ -69,7 +69,7 @@ extern (C) VALUE class_add(VALUE self, VALUE obj)
 extern (C) VALUE class_native_add(VALUE self, VALUE obj)
 {
   // convert to native type:
-  ulong val = rb_num2long(obj);
+  VALUE val = rb_num2long(obj);
   // convert back to ruby-type
   VALUE toadd = rb_int2inum(val);
   // and push ruby type
