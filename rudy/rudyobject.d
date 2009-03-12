@@ -10,12 +10,12 @@ import rudy.exception;
  * TODO: exceptions
  * TODO: full implementation of converters etc.
  */
-class PydObject {
+class RudyObject {
   protected:
     VALUE ref;
   public:
   /*
-   * Wrap around a passed Ruby's VALUE
+   * Wrap around a passed Ruby VALUE
    * Params:
    *      v = The VALUE to wrap (and reference).
    *      borrowed = Whether o is a _borrowed reference. This one comes 
@@ -25,16 +25,16 @@ class PydObject {
     this(VALUE v, bool borrowed=false) 
     {
         if (v is null) handle_exception();
-        // PydObject always owns its references
-        if (borrowed) Py_INCREF(o);
-        m_ptr = o;
+        // RudyObject will own its references
+        // if (borrowed) Py_INCREF(o);
+        ref = V;
     }
 
-    /// The default constructor constructs an instance of the Py_None PydObject.
-    this() { this(Py_None, true); }
+    /// The default constructor constructs an instance of the NilClass.
+    this() { this(rb_cNilClass, true); }
 
-    /// Destructor. Calls Py_DECREF on owned PyObject reference.
+    /// Destructor. Left for later
     ~this() {
-        Py_DECREF(m_ptr);
+        //Py_DECREF(m_ptr);
     }
 
