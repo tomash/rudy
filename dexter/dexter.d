@@ -4,6 +4,21 @@ import bcd.ruby;
 import rudy.rudyobject;
 //import ruby.c.ruby;
 
+extern(C) {
+
+void gc_init();
+void gc_term();
+
+void _init() {
+  gc_init();
+}
+
+void _fini() {
+  gc_term();
+}
+
+} /* extern(C) */
+
 alias VALUE(*func_type)();
 // Prototype for our method 'test1' - methods are prefixed by 'method_' here
 extern (C) VALUE method_return_ten();
@@ -110,6 +125,7 @@ extern (C) VALUE class_duplicate_a_string_and_add_it_two_times(VALUE self, VALUE
 extern (C) VALUE class_str_cat(VALUE self, VALUE obj)
 {
   string tocat = "I haz bin catted!";
+  tocat ~= "xxx";
   VALUE catted = rb_str_buf_cat(obj, tocat.ptr, tocat.length);
   return catted;
 }
@@ -131,14 +147,9 @@ extern (C) VALUE module_throw_a_fatal(VALUE self)
 
 extern (C) VALUE get_arr_first_and_add_ten(VALUE self)
 {
-  bcd.ruby.printf("starting the method\n");
-  
-  RudyObject rudy_el = new RudyObject(rb_iv_get(self, "@arr[0]"));
-  
-  bcd.ruby.printf("initialized object, returning");
-  
-  //return rb_int2inum(rudy_el.to_i + 10);
-  return rb_int2inum(11);
+  RArray* ary = RARRAY(rb_iv_get(self, "@arr")); 
+  RudyObject rudy_el = new RudyObject(ary.ptr[0]);
+  return rb_int2inum(rudy_el.to_i + 10);
 }
 
 
