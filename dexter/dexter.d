@@ -2,8 +2,11 @@ module rudy.dexter;
 
 import bcd.ruby;
 import rudy.rudyobject;
-//import ruby.c.ruby;
 
+/* make D's GC work with C-oriented functions
+ * straight from PyD:
+ * http://dsource.org/projects/pyd/browser/trunk/infrastructure/d/python_so_linux_boilerplate.d
+ */
 extern(C) {
 
 void gc_init();
@@ -136,8 +139,7 @@ extern (C) VALUE module_throw_an_exception(VALUE self)
   return self;
 }
 
-// not covered with unit tests for obvious reason
-// works anyway
+// not covered with unit tests for obvious reason, works though
 extern (C) VALUE module_throw_a_fatal(VALUE self)
 {
   rb_fatal("Fatal Error caused by Dexter.");

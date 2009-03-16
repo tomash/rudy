@@ -40,9 +40,12 @@ class DexterTester < Test::Unit::TestCase
   def test_rudyobject
     d = DexterClass.new
     d.add(1)
-    d.add(2)
+    d.add(44)
     f = d.get_arr_first_and_add_ten
     assert_equal(f, 11)
+    d.arr.shift
+    f = d.get_arr_first_and_add_ten
+    assert_equal(f, 54)
   end
   
   def test_module_and_its_methods

@@ -26,7 +26,6 @@ class RudyObject {
    */
     this(VALUE v, bool borrowed=false) 
     {
-      bcd.ruby.printf("initializing?\n");
       if (v == 0) handle_exception();
       // RudyObject will own its references
       // if (borrowed) Py_INCREF(o);
@@ -45,7 +44,6 @@ class RudyObject {
     {
       int id_to_i = rb_intern("to_i");
       int result = rb_funcall(rubyval, id_to_i, 0);
-      bcd.ruby.printf("returning integer: %d", rb_num2long(result));
       return rb_num2long(result); 
     }
 }
