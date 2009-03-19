@@ -39,13 +39,14 @@ class DexterTester < Test::Unit::TestCase
   
   def test_rudyobject
     d = DexterClass.new
-    d.add(1)
     d.add(44)
-    f = d.get_arr_first_and_add_ten
-    assert_equal(f, 11)
-    d.arr.shift
+    d.add(15.5)
     f = d.get_arr_first_and_add_ten
     assert_equal(f, 54)
+    d.arr.shift
+    puts d.inspect
+    f = d.get_arr_first_and_square
+    assert_equal(240.25, f)
   end
   
   def test_module_and_its_methods
@@ -55,7 +56,5 @@ class DexterTester < Test::Unit::TestCase
       DexterModule::throw_an_exception
     end
   end
-  
-  
   
 end

@@ -29,6 +29,10 @@ Ruby.d (bcd/Ruby/ruby.d) file and dexter.d in a state that compiles, runs and pa
 
 dexter_rubyd.d and associated files removed - this stuff isn't working for me (segfaulting at runtime/require time), so they're git-rm'ed.
 
+== Getting Started (with your own code)
+
+Check out dexter directory, namely files dexter.d (using Rudy), dexter_tester.rb (unittests for what's implemented in dexter.d) and compile (how to compile the stuff as for now).
+
 == Plans and aims
 
 1. Generate complete and working .d files (based on ruby.h) for writing Ruby extensions in D.

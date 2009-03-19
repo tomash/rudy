@@ -46,4 +46,9 @@ class RudyObject {
       int result = rb_funcall(rubyval, id_to_i, 0);
       return rb_num2long(result); 
     }
+    
+    double to_f()
+    {
+      return RFLOAT(rubyval).value;
+    }
 }

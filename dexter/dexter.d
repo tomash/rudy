@@ -3,6 +3,9 @@ module rudy.dexter;
 import bcd.ruby;
 import rudy.rudyobject;
 
+//only for debugging messages
+import std.stdio;
+
 /* make D's GC work with C-oriented functions
  * straight from PyD:
  * http://dsource.org/projects/pyd/browser/trunk/infrastructure/d/python_so_linux_boilerplate.d
@@ -35,6 +38,7 @@ extern (C) VALUE class_str_cat();
 extern (C) VALUE module_throw_an_exception();
 extern (C) VALUE module_throw_a_fatal();
 extern (C) VALUE get_arr_first_and_add_ten();
+extern (C) VALUE get_arr_first_and_square();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -154,6 +158,13 @@ extern (C) VALUE get_arr_first_and_add_ten(VALUE self)
   return rb_int2inum(rudy_el.to_i + 10);
 }
 
+extern (C) VALUE get_arr_first_and_square(VALUE self)
+{
+  RArray* ary = RARRAY(rb_iv_get(self, "@arr"));
+  RudyObject rudy_el = new RudyObject(ary.ptr[0]);
+  return rb_dbl2big(rudy_el.to_f * rudy_el.to_f);
+}
+
 
 // The initialization method for this module
 extern (C) void Init_dexter() {
@@ -167,6 +178,7 @@ extern (C) void Init_dexter() {
   rb_define_method(DexterClass, "duplicate_a_string_and_add_it_two_times", &class_duplicate_a_string_and_add_it_two_times, 1);
   rb_define_method(DexterClass, "str_cat", &class_str_cat, 1);
   rb_define_method(DexterClass, "get_arr_first_and_add_ten", &get_arr_first_and_add_ten, 0);
+  rb_define_method(DexterClass, "get_arr_first_and_square", &get_arr_first_and_square, 0);
   
   id_push = rb_intern("push");
   
