@@ -39,6 +39,10 @@ Check out dexter directory, namely files dexter.d (using Rudy), dexter_tester.rb
 2. Extend extconf.rb to recognize and generate makefiles (maybe also dsss config files) for extensions written in D.
 3. Create PyD (http://pyd.dsource.org/) equivalent for Ruby.
 
+== Licensing
+
+The whole RuDy project is licensed under GNU LGPL (http://www.gnu.org/licenses/lgpl.html).
+
 == Authors:
 * Tomasz Stachewicz - developer
 * Kirk McDonald - lots of help and advice on D and interaction with Ruby, original author of PyD (http://pyd.dsource.org/)
