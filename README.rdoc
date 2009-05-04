@@ -9,7 +9,6 @@ Because even native extensions should be written in a modern and pro-productive 
 
 Currently contains:
 * bcd - ruby.d converted from ruby.h using bcd.gen
-* --ruby - .d files (also from ruby.h) pieces from rubyd (http://code.google.com/p/rubyd/) project by cpunion--
 * rudy - current state of the library that's beyond the bindings
 * dexter - a playground application for testing and experimenting with (now) binding and (later) library
 
@@ -33,11 +32,11 @@ Check out dexter directory, namely files dexter.d (using Rudy), dexter_tester.rb
 
 1. Generate complete and working .d files (based on ruby.h) for writing Ruby extensions in D.
 2. Extend extconf.rb to recognize and generate makefiles (maybe also dsss config files) for extensions written in D.
-3. Create PyD (http://pyd.dsource.org/) equivalent for Ruby.
-  3.1 RudyObject
-  3.2 to_ruby_value
-  3.3 def!(function)
-  3.4 def!(class)
+3. Create PyD (http://pyd.dsource.org/) equivalent for Ruby:
+* RudyObject
+* to_ruby_value
+* def!(function)
+* def!(class)
 
 == Licensing
 
