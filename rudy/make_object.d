@@ -25,16 +25,18 @@ VALUE to_ruby_value(T) (T t)
   }  
   else static if (is(T : idouble)) 
   {
+    return to_ruby_value(0.0 + t);
+  } 
+  else static if (is(T : cdouble)) {
     rb_require("complex");
     VALUE complex_class = rb_const_get(rb_cObject, rb_intern("Complex"));
     VALUE id_method_new = rb_intern("new");
-    VALUE cmplx = rb_funcall(complex_class, id_method_new, 2, to_ruby_value(0.0), to_ruby_value(t.im));
+    VALUE cmplx = rb_funcall(complex_class, id_method_new, 2, to_ruby_value(t.re), to_ruby_value(t.im));
     return cmplx;
-      
-  } /*else static if (is(T : cdouble)) {
-      return PyComplex_FromDoubles(t.re, t.im);
-  }*/ else static if (is(T : char[])) {
+  } 
+  else static if (is(T : char[])) {
       //return PyString_FromString((t ~ \0).ptr);
+      //to add or not to add \0 ?
       return rb_str_new(t.ptr, t.length);
   } else static if (is(T : wchar[])) {
       //return PyUnicode_FromWideChar(t, t.length);

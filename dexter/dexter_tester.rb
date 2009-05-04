@@ -32,6 +32,8 @@ class DexterTester < Test::Unit::TestCase
     d.add_complex
     assert_equal(d.arr[3].real, 0.0)
     assert_equal(d.arr[3].imag, 1.3)
+    assert_equal(d.arr[4].real, 2.6)
+    assert_equal(d.arr[4].imag, 3.9)
   end
   
   def test_string_duplication

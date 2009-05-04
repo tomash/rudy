@@ -214,6 +214,8 @@ extern (C) VALUE class_add_complex(VALUE self)
 {
   idouble imag = 1.3i;
   class_add(self, to_ruby_value(imag));
+  cdouble cmplx = 2.6 + 3.9i;
+  class_add(self, to_ruby_value(cmplx));
   return self;
 }
 
