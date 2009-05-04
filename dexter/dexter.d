@@ -45,6 +45,7 @@ extern (C) VALUE class_add_integer();
 extern (C) VALUE class_add_float();
 extern (C) VALUE class_add_string();
 extern (C) VALUE class_add_complex();
+extern (C) VALUE class_add_array();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -219,6 +220,17 @@ extern (C) VALUE class_add_complex(VALUE self)
   return self;
 }
 
+extern (C) VALUE class_add_array(VALUE self)
+{
+  int[] a;
+  a.length = 5;
+  for(int i=0; i<a.length; ++i)
+    a[i] = i*i;
+  VALUE ruby_array = to_ruby_value(a);
+  class_add(self, ruby_array);
+  return ruby_array;
+}
+
 
 // The initialization method for this module
 extern (C) void Init_dexter() {
@@ -240,6 +252,7 @@ extern (C) void Init_dexter() {
   rb_define_method(DexterClass, "add_float", &class_add_float, 0);
   rb_define_method(DexterClass, "add_string", &class_add_string, 0);
   rb_define_method(DexterClass, "add_complex", &class_add_complex, 0);
+  rb_define_method(DexterClass, "add_array", &class_add_array, 0);
   
   id_push = rb_intern("push");
   

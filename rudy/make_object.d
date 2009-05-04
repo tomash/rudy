@@ -5,6 +5,27 @@ import bcd.ruby;
 
 import rudy.exception;
 
+// blatantly sto... borrowed from PyD
+package template isArray(T) {
+    const bool isArray = is(typeof(T.init[0])[] == T);
+}
+
+// This relies on the fact that, for a static array type T,
+//      typeof(T.init) != T
+// But, rather, T.init is the type it is an array of. (For the dynamic array
+// template above, this type is extracted with typeof(T.init[0])).
+// Because this is only true for static arrays, it would work just as well to
+// say "!is(typeof(T.init) == T)"; however, this template has the advantage of
+// being easily fixable should this behavior for static arrays change.
+package template isStaticArray(T) {
+    const bool isStaticArray = is(typeof(T.init)[(T).sizeof / typeof(T.init).sizeof] == T);
+}
+
+package template isAA(T) {
+    const bool isAA = is(typeof(T.init.values[0])[typeof(T.init.keys[0])] == T);
+}
+
+
 
 VALUE to_ruby_value(T) (T t)
 {
@@ -38,8 +59,30 @@ VALUE to_ruby_value(T) (T t)
       //return PyString_FromString((t ~ \0).ptr);
       //to add or not to add \0 ?
       return rb_str_new(t.ptr, t.length);
-  } else static if (is(T : wchar[])) {
+  } 
+  else static if (is(T : wchar[])) {
       //return PyUnicode_FromWideChar(t, t.length);
       return rb_str_new(t.ptr, t.length);
   }
+  else static if (isArray!(T) || isStaticArray!(T)) {
+    VALUE ruby_array = rb_ary_new2(t.length);
+    VALUE temp;
+    if (ruby_array == Qnil) return Qnil;
+    for(int i=0; i<t.length; ++i)
+    {
+      temp = to_ruby_value(t[i]);
+      if (temp == Qnil) {
+          //Py_DECREF(lst);
+          return Qnil;
+      }
+      //id_push = rb_intern("push");
+      //rb_funcall(ruby_array, id_push, 1, temp);
+      VALUE id_set_element_at = rb_intern("[]=");
+      rb_funcall(ruby_array, id_set_element_at, 2, to_ruby_value(i), temp);
+    }
+    return ruby_array;
+  }
+  
+  //if everything fails, we return Ruby nil
+  return Qnil;
 }
