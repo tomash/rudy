@@ -40,6 +40,23 @@ class RudyObject {
         //Py_DECREF(m_ptr);
     }
     
+    VALUE ptr() { return rubyval; }
+    
+    /* D operator overloading */
+    bool opEquals(RudyObject other) {
+        int res = rb_equal(rubyval, other.rubyval);
+        //handle_exception();
+        return res != 0;
+    }
+    
+    
+    /* conversions */
+    RudyObject to_s()
+    {
+      VALUE stringed = rb_any_to_s(rubyval);
+      return new RudyObject(stringed);
+    }
+    
     long to_i()
     {
       int id_to_i = rb_intern("to_i");

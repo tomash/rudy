@@ -26,7 +26,6 @@ void _fini() {
 } /* extern(C) */
 
 alias VALUE(*func_type)();
-// Prototype for our method 'test1' - methods are prefixed by 'method_' here
 extern (C) VALUE method_return_ten();
 extern (C) VALUE class_init();
 extern (C) VALUE class_arr();
@@ -39,6 +38,8 @@ extern (C) VALUE module_throw_an_exception();
 extern (C) VALUE module_throw_a_fatal();
 extern (C) VALUE get_arr_first_and_add_ten();
 extern (C) VALUE get_arr_first_and_square();
+extern (C) VALUE create_and_compare_two_equal_ruby_integers();
+extern (C) VALUE create_and_compare_two_not_equal_ruby_integers();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -165,6 +166,26 @@ extern (C) VALUE get_arr_first_and_square(VALUE self)
   return rb_dbl2big(rudy_el.to_f * rudy_el.to_f);
 }
 
+extern (C) VALUE create_and_compare_two_equal_ruby_integers(VALUE self)
+{
+  RudyObject int1 = new RudyObject(rb_int2inum(10));
+  RudyObject int2 = new RudyObject(rb_int2inum(10));
+  if(int1 == int2)
+    return Qtrue;
+  else
+    return Qfalse;
+}
+
+extern (C) VALUE create_and_compare_two_not_equal_ruby_integers(VALUE self)
+{
+  RudyObject int1 = new RudyObject(rb_int2inum(10));
+  RudyObject int2 = new RudyObject(rb_int2inum(11));
+  if(int1 == int2)
+    return Qtrue;
+  else
+    return Qfalse;
+}
+
 
 // The initialization method for this module
 extern (C) void Init_dexter() {
@@ -179,6 +200,8 @@ extern (C) void Init_dexter() {
   rb_define_method(DexterClass, "str_cat", &class_str_cat, 1);
   rb_define_method(DexterClass, "get_arr_first_and_add_ten", &get_arr_first_and_add_ten, 0);
   rb_define_method(DexterClass, "get_arr_first_and_square", &get_arr_first_and_square, 0);
+  rb_define_method(DexterClass, "create_and_compare_two_equal_ruby_integers", &create_and_compare_two_equal_ruby_integers, 0);
+  rb_define_method(DexterClass, "create_and_compare_two_not_equal_ruby_integers", &create_and_compare_two_not_equal_ruby_integers, 0);
   
   id_push = rb_intern("push");
   

@@ -2360,3 +2360,9 @@ extern (C) extern uint rb_eZeroDivError;
 extern (C) extern uint rb_eInterrupt;
 extern (C) extern uint rb_eThreadError;
 extern (C) extern uint rb_cDir;
+
+/* special constants - i.e. non-zero and non-fixnum constants */
+extern (C) const uint Qfalse = cast(VALUE)0;
+extern (C) const uint Qtrue = cast(VALUE)2;
+extern (C) const uint Qnil = cast(VALUE)4;
+extern (C) const uint Qundef  = cast(VALUE)6;	/* undefined value for placeholder */
