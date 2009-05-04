@@ -9,23 +9,19 @@ Because even native extensions should be written in a modern and pro-productive 
 
 Currently contains:
 * bcd - ruby.d converted from ruby.h using bcd.gen
-* ruby - .d files (also from ruby.h) pieces from rubyd (http://code.google.com/p/rubyd/) project by cpunion
-* dexter - an application for testing and experimenting with (now) binding and (later) library
+* --ruby - .d files (also from ruby.h) pieces from rubyd (http://code.google.com/p/rubyd/) project by cpunion--
+* rudy - current state of the library that's beyond the bindings
+* dexter - a playground application for testing and experimenting with (now) binding and (later) library
 
 See README files in each of the subdirs for explanation and further info.
 
 == Current state
 
-Ruby.d (bcd/Ruby/ruby.d) file and dexter.d in a state that compiles, runs and passes tests. Working (proved) ruby C functions: 
-* rb_define_class, rb_define_method
-* rb_define_module, rb_define_module_function
-* rb_intern, rb_funcall
-* rb_num2long, rb_int2inum and assorted number-types functions
-* rb_iv_get, rb_iv_set
-* rb_string_value, rb_str_new, rb_str_dup, rb_str_modify, rb_str_buf_cat
-* StringValue, RSTRING (and other R-casts)
-* rb_ary_new
-* rb_raise, rb_fatal
+Bindings (bcd.ruby) working as far as current Dexter functionality and its test coverage is concerned.
+
+Early state of RudyObject -- a class for references to Ruby objects (VALUEs) that wraps, convers and exposes these to D as D's native types.
+
+Early state of to_ruby_vale -- a function doing the opposite, i.e. returning Ruby VALUEs from native D types (some D reflection goodness here).
 
 dexter_rubyd.d and associated files removed - this stuff isn't working for me (segfaulting at runtime/require time), so they're git-rm'ed.
 
@@ -38,6 +34,10 @@ Check out dexter directory, namely files dexter.d (using Rudy), dexter_tester.rb
 1. Generate complete and working .d files (based on ruby.h) for writing Ruby extensions in D.
 2. Extend extconf.rb to recognize and generate makefiles (maybe also dsss config files) for extensions written in D.
 3. Create PyD (http://pyd.dsource.org/) equivalent for Ruby.
+  3.1 RudyObject
+  3.2 to_ruby_value
+  3.3 def!(function)
+  3.4 def!(class)
 
 == Licensing
 
