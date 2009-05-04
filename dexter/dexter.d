@@ -44,6 +44,7 @@ extern (C) VALUE create_and_compare_two_not_equal_ruby_integers();
 extern (C) VALUE class_add_integer();
 extern (C) VALUE class_add_float();
 extern (C) VALUE class_add_string();
+extern (C) VALUE class_add_complex();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -209,6 +210,14 @@ extern (C) VALUE class_add_string(VALUE self)
 }
 
 
+extern (C) VALUE class_add_complex(VALUE self)
+{
+  idouble imag = 1.3i;
+  class_add(self, to_ruby_value(imag));
+  return self;
+}
+
+
 // The initialization method for this module
 extern (C) void Init_dexter() {
   DexterClass = rb_define_class("DexterClass", rb_cObject);
@@ -228,6 +237,7 @@ extern (C) void Init_dexter() {
   rb_define_method(DexterClass, "add_integer", &class_add_integer, 0);
   rb_define_method(DexterClass, "add_float", &class_add_float, 0);
   rb_define_method(DexterClass, "add_string", &class_add_string, 0);
+  rb_define_method(DexterClass, "add_complex", &class_add_complex, 0);
   
   id_push = rb_intern("push");
   

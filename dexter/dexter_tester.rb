@@ -2,6 +2,7 @@
 
 require 'dexter'
 require 'test/unit'
+require 'complex'
 
 class DexterTester < Test::Unit::TestCase
   def test_class_and_its_primitive_methods
@@ -28,6 +29,9 @@ class DexterTester < Test::Unit::TestCase
     assert_equal(d.arr[1], 99.99)
     d.add_string
     assert_equal(d.arr[2], "hello there")
+    d.add_complex
+    assert_equal(d.arr[3].real, 0.0)
+    assert_equal(d.arr[3].imag, 1.3)
   end
   
   def test_string_duplication
@@ -66,7 +70,7 @@ class DexterTester < Test::Unit::TestCase
     assert_equal(true, d.create_and_compare_two_equal_ruby_integers())
     assert_equal(false, d.create_and_compare_two_not_equal_ruby_integers())
   end
-  
+
   def test_module_and_its_methods
     assert_equal(DexterModule.class, Module)
     assert_equal(DexterModule::return_ten, 10)
@@ -74,5 +78,5 @@ class DexterTester < Test::Unit::TestCase
       DexterModule::throw_an_exception
     end
   end
-  
+
 end
