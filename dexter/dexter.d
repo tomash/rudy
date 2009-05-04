@@ -41,6 +41,9 @@ extern (C) VALUE get_arr_first_and_add_ten();
 extern (C) VALUE get_arr_first_and_square();
 extern (C) VALUE create_and_compare_two_equal_ruby_integers();
 extern (C) VALUE create_and_compare_two_not_equal_ruby_integers();
+extern (C) VALUE class_add_integer();
+extern (C) VALUE class_add_float();
+extern (C) VALUE class_add_string();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -187,6 +190,24 @@ extern (C) VALUE create_and_compare_two_not_equal_ruby_integers(VALUE self)
     return Qfalse;
 }
 
+extern (C) VALUE class_add_integer(VALUE self)
+{
+  class_add(self, to_ruby_value(99));
+  return self;
+}
+
+extern (C) VALUE class_add_float(VALUE self)
+{
+  class_add(self, to_ruby_value(99.99));
+  return self;
+}
+
+extern (C) VALUE class_add_string(VALUE self)
+{
+  class_add(self, to_ruby_value("hello there"));
+  return self;
+}
+
 
 // The initialization method for this module
 extern (C) void Init_dexter() {
@@ -203,6 +224,10 @@ extern (C) void Init_dexter() {
   rb_define_method(DexterClass, "get_arr_first_and_square", &get_arr_first_and_square, 0);
   rb_define_method(DexterClass, "create_and_compare_two_equal_ruby_integers", &create_and_compare_two_equal_ruby_integers, 0);
   rb_define_method(DexterClass, "create_and_compare_two_not_equal_ruby_integers", &create_and_compare_two_not_equal_ruby_integers, 0);
+  
+  rb_define_method(DexterClass, "add_integer", &class_add_integer, 0);
+  rb_define_method(DexterClass, "add_float", &class_add_float, 0);
+  rb_define_method(DexterClass, "add_string", &class_add_string, 0);
   
   id_push = rb_intern("push");
   

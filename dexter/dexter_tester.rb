@@ -4,7 +4,7 @@ require 'dexter'
 require 'test/unit'
 
 class DexterTester < Test::Unit::TestCase
-  def test_class_and_its_methods
+  def test_class_and_its_primitive_methods
     assert_equal(DexterClass.class, Class)
     assert_equal(DexterClass.superclass, Object)
     d = DexterClass.new
@@ -18,6 +18,16 @@ class DexterTester < Test::Unit::TestCase
     d.add_strings_first_letter("showtime!")
     d.add_strings_first_letter("tratatata")
     assert_equal([1,2, 22,"s","t"], d.arr)
+  end
+  
+  def test_class_and_makeobject_methods
+    d = DexterClass.new
+    d.add_integer
+    assert_equal(d.arr[0], 99)
+    d.add_float
+    assert_equal(d.arr[1], 99.99)
+    d.add_string
+    assert_equal(d.arr[2], "hello there")
   end
   
   def test_string_duplication
