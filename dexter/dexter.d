@@ -170,7 +170,7 @@ extern (C) VALUE get_arr_first_and_square(VALUE self)
 {
   RArray* ary = RARRAY(rb_iv_get(self, "@arr"));
   RudyObject rudy_el = new RudyObject(ary.ptr[0]);
-  return rb_dbl2big(rudy_el.to_f * rudy_el.to_f);
+  return to_ruby_value(rudy_el.to_f * rudy_el.to_f);
 }
 
 extern (C) VALUE create_and_compare_two_equal_ruby_integers(VALUE self)

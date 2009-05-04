@@ -64,11 +64,8 @@ class DexterTester < Test::Unit::TestCase
     f = d.get_arr_first_and_add_ten
     assert_equal(f, 54)
     d.arr.shift
-    #puts d.inspect
     f = d.get_arr_first_and_square
-    #needs fixing!
-    #assert_equal(240.25, f)
-    assert_equal(240, f)
+    assert_equal(240.25, f)
   end
   
   def test_rudyobject_operators
