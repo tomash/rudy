@@ -2,6 +2,7 @@ module rudy.dexter;
 
 import bcd.ruby;
 import rudy.rudyobject;
+import rudy.make_object;
 
 //only for debugging messages
 import std.stdio;
