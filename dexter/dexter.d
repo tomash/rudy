@@ -46,6 +46,7 @@ extern (C) VALUE class_add_float();
 extern (C) VALUE class_add_string();
 extern (C) VALUE class_add_complex();
 extern (C) VALUE class_add_array();
+extern (C) VALUE class_add_hash();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -231,6 +232,17 @@ extern (C) VALUE class_add_array(VALUE self)
   return ruby_array;
 }
 
+extern (C) VALUE class_add_hash(VALUE self)
+{
+  int[char[]] h;  //hash of integers adressed by strings
+  h["three"] = 3;
+  h["six"] = 6;
+  h["fourteen"] = 14;
+  VALUE ruby_hash = to_ruby_value(h);
+  class_add(self, ruby_hash);
+  return ruby_hash;
+}
+
 
 // The initialization method for this module
 extern (C) void Init_dexter() {
@@ -253,6 +265,7 @@ extern (C) void Init_dexter() {
   rb_define_method(DexterClass, "add_string", &class_add_string, 0);
   rb_define_method(DexterClass, "add_complex", &class_add_complex, 0);
   rb_define_method(DexterClass, "add_array", &class_add_array, 0);
+  rb_define_method(DexterClass, "add_hash", &class_add_hash, 0);
   
   id_push = rb_intern("push");
   

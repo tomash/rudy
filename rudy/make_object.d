@@ -64,6 +64,7 @@ VALUE to_ruby_value(T) (T t)
       //return PyUnicode_FromWideChar(t, t.length);
       return rb_str_new(t.ptr, t.length);
   }
+  // Converts any array (static or dynamic) to a Ruby Array
   else static if (isArray!(T) || isStaticArray!(T)) {
     VALUE ruby_array = rb_ary_new2(t.length);
     VALUE temp;
@@ -75,12 +76,43 @@ VALUE to_ruby_value(T) (T t)
           //Py_DECREF(lst);
           return Qnil;
       }
-      //id_push = rb_intern("push");
-      //rb_funcall(ruby_array, id_push, 1, temp);
+      //screw Array#push -- it's slower
       VALUE id_set_element_at = rb_intern("[]=");
       rb_funcall(ruby_array, id_set_element_at, 2, to_ruby_value(i), temp);
     }
     return ruby_array;
+  }
+  // Converts any associative array to a Ruby Hash
+  else static if (isAA!(T)) {
+    VALUE ruby_hash = rb_hash_new();
+    VALUE ktemp, vtemp;
+    int result;
+    if (ruby_hash == Qnil) return Qnil;
+    foreach(key, val; t) {
+      ktemp = to_ruby_value(key);
+      vtemp = to_ruby_value(val);
+      VALUE id_set_element_at = rb_intern("[]=");
+      rb_funcall(ruby_hash, id_set_element_at, 2, ktemp, vtemp);
+      
+      //reference mangling -- TODO at later time
+      /*
+      if (ktemp is null || vtemp is null) {
+        if (ktemp !is null) Py_DECREF(ktemp);
+        if (vtemp !is null) Py_DECREF(vtemp);
+        Py_DECREF(dict);
+        return null;
+      }
+      */
+      /*
+      Py_DECREF(ktemp);
+      Py_DECREF(vtemp);
+      if (result == -1) {
+        Py_DECREF(dict);
+        return null;
+      }
+      */
+    }
+    return ruby_hash;
   }
   
   //if everything fails, we return Ruby nil

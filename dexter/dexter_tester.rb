@@ -21,7 +21,7 @@ class DexterTester < Test::Unit::TestCase
     assert_equal([1,2, 22,"s","t"], d.arr)
   end
   
-  def test_class_and_makeobject_methods
+  def test_class_and_to_ruby_val_methods
     d = DexterClass.new
     d.add_integer
     assert_equal(d.arr[0], 99)
@@ -36,7 +36,8 @@ class DexterTester < Test::Unit::TestCase
     assert_equal(d.arr[4].imag, 3.9)
     d.add_array
     assert_equal(d.arr[5], [0,1,4,9,16])
-    
+    d.add_hash
+    assert_equal(d.arr[6], {"fourteen" => 14, "three" => 3, "six" => 6})
   end
   
   def test_string_duplication
