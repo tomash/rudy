@@ -33,9 +33,10 @@ void def(alias fn, char[] name = symbolnameof!(fn), fn_t=typeof(&fn), uint MIN_A
 
 
 /* currently does it the "dumb" way, without wrapping/unwrapping arguments and return values! */
+
 void def(char[] modulename, alias fn, char[] name = symbolnameof!(fn), fn_t=typeof(&fn), uint MIN_ARGS = minArgs!(fn, fn_t)) (char[] docstring="") 
 {
-    pragma(msg, "def: " ~ name);
+    pragma(msg, "def: " ~ name ~ " in " ~ modulename);
     
     VALUE parent_context = rb_const_get(rb_cObject, rb_intern((modulename ~ \0).ptr));
     

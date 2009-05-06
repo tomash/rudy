@@ -281,5 +281,5 @@ extern (C) void Init_dexter() {
   
   def!("DexterClass", the_new_fifteen);
   def!("DexterModule", the_new_fifteen);
-  //def!(the_new_fifteen);
+  def!(the_new_fifteen);
 }

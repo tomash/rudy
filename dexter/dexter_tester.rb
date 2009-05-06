@@ -85,7 +85,8 @@ class DexterTester < Test::Unit::TestCase
   
   def test_def_function_macro
     assert_equal(DexterModule::the_new_fifteen, 15)
-    assert_equal(DexterClass::the_new_fifteen, 15)
+    assert_equal(DexterClass.new.the_new_fifteen, 15)
+    assert_equal(the_new_fifteen, 15)
   end
 
 end

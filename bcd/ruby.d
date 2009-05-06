@@ -586,8 +586,22 @@ alias __SHRT_MAX__ SHRT_MAX;
 alias __INT_MAX__ INT_MAX;
 alias __LONG_MAX__ LONG_MAX;
 const int FIXNUM_FLAG = 0x01;
+
 const int IMMEDIATE_MASK = 0x03;
-const double SYMBOL_FLAG = 0x0e;
+VALUE IMMEDIATE_P(VALUE x)
+{
+  return (x & IMMEDIATE_MASK);
+}
+
+const int SYMBOL_FLAG = 0x0e;
+VALUE SYMBOL_P(VALUE x)
+{
+  return ((x & 0xff) == SYMBOL_FLAG);
+}
+//#define ID2SYM(x) ((VALUE)(((long)(x))<<8|SYMBOL_FLAG))
+//#define SYM2ID(x) RSHIFT((unsigned long)x,8)
+
+
 const int T_NONE = 0x00;
 const int T_NIL = 0x01;
 const int T_OBJECT = 0x02;
@@ -1484,8 +1498,25 @@ extern (C) uint rb_reg_match_pre(uint);
 extern (C) uint rb_obj_tainted(uint);
 extern (C) void rb_obj_infect(uint, uint);
 
-extern (C) int rb_type(uint);
+//extern (C) int rb_type(uint);
+
+int rb_type(VALUE obj)
+{
+    //if (FIXNUM_P(obj)) return T_FIXNUM;
+    if (obj == Qnil) return T_NIL;
+    if (obj == Qfalse) return T_FALSE;
+    if (obj == Qtrue) return T_TRUE;
+    if (obj == Qundef) return T_UNDEF;
+    //if (SYMBOL_P(obj)) return T_SYMBOL;
+    return BUILTIN_TYPE(obj);
+}
+
 alias rb_type TYPE;
+
+int BUILTIN_TYPE(VALUE x)
+{
+  return RBASIC(x).flags & T_MASK;
+}
 
 extern (C) char * tmpnam_r(char *);
 extern (C) char * gcvt(double, int, char *);
