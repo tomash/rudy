@@ -1,9 +1,7 @@
 module rudy.dexter;
 
 import bcd.ruby;
-import rudy.rudyobject;
-import rudy.make_object;
-import rudy.func_wrap;
+import rudy.rudy;
 
 //only for debugging messages
 import std.stdio;
@@ -13,16 +11,15 @@ import std.stdio;
  * http://dsource.org/projects/pyd/browser/trunk/infrastructure/d/python_so_linux_boilerplate.d
  */
 extern(C) {
-
-void gc_init();
-void gc_term();
-
-void _init() {
-  gc_init();
-}
-
-void _fini() {
-  gc_term();
+  void gc_init();
+  void gc_term();
+  
+  void _init() {
+    gc_init();
+  }
+  
+  void _fini() {
+    gc_term();
 }
 
 } /* extern(C) */
@@ -48,6 +45,7 @@ extern (C) VALUE class_add_string();
 extern (C) VALUE class_add_complex();
 extern (C) VALUE class_add_array();
 extern (C) VALUE class_add_hash();
+extern (C) VALUE the_new_fifteen();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -244,6 +242,12 @@ extern (C) VALUE class_add_hash(VALUE self)
   return ruby_hash;
 }
 
+extern (C) VALUE the_new_fifteen(VALUE self) {
+  int x = 15;
+  //return INT2NUM(x);
+  return to_ruby_value(15);
+}
+
 
 // The initialization method for this module
 extern (C) void Init_dexter() {
@@ -274,4 +278,8 @@ extern (C) void Init_dexter() {
   rb_define_module_function(DexterModule, "return_ten", &method_return_ten, 0);
   rb_define_module_function(DexterModule, "throw_an_exception", &module_throw_an_exception, 0);
   rb_define_module_function(DexterModule, "throw_a_fatal", &module_throw_a_fatal, 0);
+  
+  def!("DexterClass", the_new_fifteen);
+  def!("DexterModule", the_new_fifteen);
+  //def!(the_new_fifteen);
 }

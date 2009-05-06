@@ -676,6 +676,8 @@ alias void _IO_lock_t;
 alias uint __u_int;
 alias uint u_int;
 alias uint VALUE;
+//typedef uint VALUE;
+
 alias ulong __uint64_t;
 alias uint __id_t;
 alias int time_t;
@@ -1481,7 +1483,10 @@ extern (C) uint rb_big_plus(uint, uint);
 extern (C) uint rb_reg_match_pre(uint);
 extern (C) uint rb_obj_tainted(uint);
 extern (C) void rb_obj_infect(uint, uint);
+
 extern (C) int rb_type(uint);
+alias rb_type TYPE;
+
 extern (C) char * tmpnam_r(char *);
 extern (C) char * gcvt(double, int, char *);
 extern (C) char * qgcvt(real, int, char *);

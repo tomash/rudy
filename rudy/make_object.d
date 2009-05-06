@@ -151,7 +151,8 @@ RudyObject ru(T) (T t)
 class RudyConversionException : Exception {
     this(char[] msg) { super(msg); }
 }
-/**
+
+/*
  * This converts a Ruby VALUE to a D type. The template argument is the type to
  * convert to. The function argument is the VALUE to convert. For instance:
  *
@@ -162,6 +163,7 @@ class RudyConversionException : Exception {
  * This throws a RudyConversionException if the VALUE can't be converted to
  * the given D type.
  */
+/*
 T d_type(T) (PyObject* o) {
     // This ordering is very important. If the check for bool came first,
     // then all integral types would be converted to bools (they would be
@@ -293,3 +295,4 @@ void could_not_convert(T) (PyObject* o) {
         "'"
     );
 }
+*/

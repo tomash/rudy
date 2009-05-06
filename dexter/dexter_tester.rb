@@ -77,9 +77,15 @@ class DexterTester < Test::Unit::TestCase
   def test_module_and_its_methods
     assert_equal(DexterModule.class, Module)
     assert_equal(DexterModule::return_ten, 10)
+    
     assert_raise ArgumentError do 
       DexterModule::throw_an_exception
     end
+  end
+  
+  def test_def_function_macro
+    assert_equal(DexterModule::the_new_fifteen, 15)
+    assert_equal(DexterClass::the_new_fifteen, 15)
   end
 
 end
