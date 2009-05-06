@@ -20,7 +20,9 @@ Bindings (bcd.ruby) working as far as current Dexter functionality and its test 
 
 Early state of RudyObject -- a class for references to Ruby objects (VALUEs) that wraps, convers and exposes these to D as D's native types.
 
-Early state of to_ruby_vale -- a function doing the opposite, i.e. returning Ruby VALUEs from native D types (some D reflection goodness here).
+to_ruby_value -- a function doing the opposite, i.e. returning Ruby VALUEs from native D types (some D reflection goodness here); needs a bit of non-critical work (wrapping functions/delegates etc.)
+
+def! macro for automatically registering D methods into Ruby -- working with some cool features, but still lacks auto-wrapping/unwrapping passed arguments and return value
 
 dexter_rubyd.d and associated files removed - this stuff isn't working for me (segfaulting at runtime/require time), so they're git-rm'ed.
 
