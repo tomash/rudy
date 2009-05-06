@@ -44,14 +44,13 @@ void def(char[] modulename, alias fn, char[] name = symbolnameof!(fn), fn_t=type
 {
     pragma(msg, "def: " ~ name);
     
-    //VALUE parent_context = rb_const_get(rb_cObject, rb_intern("DexterModule"));
     VALUE parent_context = rb_const_get(rb_cObject, rb_intern((modulename ~ \0).ptr));
     
-    if(TYPE(parent_context) == T_CLASS)
+    if(rb_type(parent_context) == T_CLASS)
     {
       rb_define_method(parent_context, (name ~ \0).ptr, &fn, MIN_ARGS);
     }
-    else if(TYPE(parent_context) == T_MODULE)
+    else if(rb_type(parent_context) == T_MODULE)
     {
       rb_define_module_function(parent_context, (name ~ \0).ptr, &fn, MIN_ARGS);
     }
