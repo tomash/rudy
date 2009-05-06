@@ -6,14 +6,14 @@ Files:
 dexter.c - C prototype of what should work (to see how it should work in C)
 dexter_tester_c.rb - a test suite for the above C prototype
 dexter.d - current state of experimental Dexter app using BCD-generated ruby.d
-compile - small shell-scripts for compiling dexter.d using GDC
+compile - small shell-scripts for compiling dexter.d using GDC (to-be replaced with Makefile)
 dexter_tester.rb - a test suite for the above experimental D application
 
 Current state of affairs:
 
 Check out project's main README for list of working and successfully used (and with test coverage) Ruby API methods.
 
-Moving to to getting Dexter to work with other method definition functions.
+Check out source code for what's tested and working.
 
 Debugging native extension with GDB:
 gdb ruby
