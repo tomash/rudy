@@ -1,14 +1,7 @@
 module rudy.def;
-//the basics: bindings
+
 import bcd.ruby;
 
-/*
-import pyd.func_wrap;
-import pyd.lib_abstract :
-    symbolnameof,
-    minArgs
-;
-*/
 /*
 import rudy.lib_abstract :
   symbolnameof,
@@ -38,8 +31,8 @@ void def(alias fn, char[] name = symbolnameof!(fn), fn_t=typeof(&fn), uint MIN_A
     def!("Object", fn, name, fn_t, MIN_ARGS)(docstring);
 }
 
-/* currently does it the "dumb" way, without wrapping/unwrapping arguments and return values! */
 
+/* currently does it the "dumb" way, without wrapping/unwrapping arguments and return values! */
 void def(char[] modulename, alias fn, char[] name = symbolnameof!(fn), fn_t=typeof(&fn), uint MIN_ARGS = minArgs!(fn, fn_t)) (char[] docstring="") 
 {
     pragma(msg, "def: " ~ name);
