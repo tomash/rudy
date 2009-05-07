@@ -160,11 +160,11 @@ class RudyConversionException : Exception {
  *int n = _d_type!(int)(i);
  *assert(n == 20);)
  *
- * This throws a RudyConversionException if the VALUE can't be converted to
+ * This WILL THROW a RudyConversionException if the VALUE can't be converted to
  * the given D type.
  */
-/*
-T d_type(T) (PyObject* o) {
+
+T d_type(T) (VALUE val) {
     // This ordering is very important. If the check for bool came first,
     // then all integral types would be converted to bools (they would be
     // 0 or 1), because bool can be implicitly converted to any integral
@@ -175,124 +175,58 @@ T d_type(T) (PyObject* o) {
     //  (2) Any integral type smaller than a C_long (which is usually just
     //      an int, meaning short and byte) will use the bool conversion.
     //  (3) Conversion to a float shouldn't work.
-    static if (is(PyObject* : T)) {
-        return o;
-    } else static if (is(PydObject : T)) {
-        return new PydObject(o, true);
-    } else static if (is(T == void)) {
-        if (o != Py_None) could_not_convert!(T)(o);
-        Py_INCREF(Py_None);
-        return Py_None;
-    } else static if (is(T == class)) {
-        // We can only convert to a class if it has been wrapped, and of course
-        // we can only convert the object if it is the wrapped type.
-        if (is_wrapped!(T) && PyObject_TypeCheck(o, &wrapped_class_type!(T))) {
-            return WrapPyObject_AsObject!(T)(o);
-        }
-        // Otherwise, throw up an exception.
-        could_not_convert!(T)(o);
-    } else static if (is(T == struct)) { // struct by value
-        if (is_wrapped!(T*) && PyObject_TypeCheck(o, &wrapped_class_type!(T*))) { 
-            return *WrapPyObject_AsObject!(T*)(o);
-        } else could_not_convert!(T)(o);
-    } else static if (is(typeof(*(T.init)) == struct)) { // pointer to struct   
-        if (is_wrapped!(T) && PyObject_TypeCheck(o, &wrapped_class_type!(T))) {
-            return WrapPyObject_AsObject!(T)(o);
-        } else could_not_convert!(T)(o);
-    } else static if (is(T == delegate)) {
-        // Get the original wrapped delegate out if this is a wrapped delegate
-        if (is_wrapped!(T) && PyObject_TypeCheck(o, &wrapped_class_type!(T))) {
-            return WrapPyObject_AsObject!(T)(o);
-        // Otherwise, wrap the PyCallable with a delegate
-        } else if (PyCallable_Check(o)) {
-            return PydCallable_AsDelegate!(T)(o);
-        } else could_not_convert!(T)(o);
-    } else static if (is(T == function)) {
-        // We can only make it a function pointer if we originally wrapped a
-        // function pointer.
-        if (is_wrapped!(T) && PyObject_TypeCheck(o, &wrapped_class_type!(T))) {
-            return WrapPyObject_AsObject!(T)(o);
-        } else could_not_convert!(T)(o);
-    /+
-    } else static if (is(wchar[] : T)) {
+    static if (is(T == void)) {
+        //if (o != Py_None) could_not_convert!(T)(o);
+        //Py_INCREF(Py_None);
+        return Qnil;
+    }
+
+    //unicode strings  -- later
+    /*
+    else static if (is(wchar[] : T)) {
         wchar[] temp;
         temp.length = PyUnicode_GetSize(o);
         PyUnicode_AsWideChar(cast(PyUnicodeObject*)o, temp, temp.length);
         return temp;
-    +/
-    } else static if (is(char[] : T)) {
-        char* result;
-        PyObject* repr;
-        // If it's a string, convert it
-        if (PyString_Check(o) || PyUnicode_Check(o)) {
-            result = PyString_AsString(o);
-        // If it's something else, convert its repr
-        } else {
-            repr = PyObject_Repr(o);
-            if (repr is null) handle_exception();
-            result = PyString_AsString(repr);
-            Py_DECREF(repr);
-        }
-        if (result is null) handle_exception();
-        return .toString(result).dup;
-    } else static if (is(cdouble : T)) {
+    
+    }*/
+    //normal string
+    else static if (is(char[] : T)) {
+        char* c_str = StringValuePtr(val);
+        char[] result = c_str[0..c_str.length-1];
+        return result.dup;
+    }
+    //complex numbers -- later
+    /*
+    else static if (is(cdouble : T)) {
         double real_ = PyComplex_RealAsDouble(o);
         handle_exception();
         double imag = PyComplex_ImagAsDouble(o);
         handle_exception();
         return real_ + imag * 1i;
-    } else static if (is(double : T)) {
-        double res = PyFloat_AsDouble(o);
-        handle_exception();
-        return res;
-    } else static if (is(C_longlong : T)) {
-        if (!PyNumber_Check(o)) could_not_convert!(T)(o);
-        C_longlong res = PyLong_AsLongLong(o);
-        handle_exception();
-        return res;
-    } else static if (is(C_long : T)) {
-        if (!PyNumber_Check(o)) could_not_convert!(T)(o);
-        C_long res = PyInt_AsLong(o);
-        handle_exception();
-        return res;
-    } else static if (is(bool : T)) {
-        if (!PyNumber_Check(o)) could_not_convert!(T)(o);
-        int res = PyObject_IsTrue(o);
-        handle_exception();
-        return res == 1;
-    } else {
-        could_not_convert!(T)(o);
+    }
+    */
+    else static if (is(double : T)) {
+      int id_to_f = rb_intern("to_f");
+      int result = rb_funcall(val, id_to_f, 0);
+      return RFLOAT(result).value;
+    } 
+    else static if (is(C_longlong : T)) {
+      int id_to_i = rb_intern("to_i");
+      int result = rb_funcall(val, id_to_i, 0);
+      return rb_num2long(result); 
+    } 
+    else static if (is(C_long : T)) {
+      int id_to_i = rb_intern("to_i");
+      int result = rb_funcall(val, id_to_i, 0);
+      return rb_num2long(result); 
+    } 
+    else static if (is(bool : T)) {
+      return val == Qnil;
+    } 
+    else {
+      // some error handling please?
     }
 }
 
-alias d_type!(Object) d_type_Object;
-
-private
-void could_not_convert(T) (PyObject* o) {
-    // Pull out the name of the type of this Python object, and the
-    // name of the D type.
-    char[] py_typename, d_typename;
-    PyObject* py_type, py_type_str;
-    py_type = PyObject_Type(o);
-    if (py_type is null) {
-        py_typename = "<unknown>";
-    } else {
-        py_type_str = PyObject_GetAttrString(py_type, "__name__");
-        Py_DECREF(py_type);
-        if (py_type_str is null) {
-            py_typename = "<unknown>";
-        } else {
-            py_typename = .toString(PyString_AsString(py_type_str));
-            Py_DECREF(py_type_str);
-        }
-    }
-    d_typename = objToStr(typeid(T));
-    throw new PydConversionException(
-        "Couldn't convert Python type '" ~
-        py_typename ~
-        "' to D type '" ~
-        d_typename ~
-        "'"
-    );
-}
-*/
+//alias d_type!(Object) d_type_Object;

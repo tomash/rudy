@@ -249,6 +249,8 @@ extern (C) VALUE the_new_fifteen(VALUE self) {
 }
 
 
+
+
 // The initialization method for this module
 extern (C) void Init_dexter() {
   DexterClass = rb_define_class("DexterClass", rb_cObject);

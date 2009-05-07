@@ -8,7 +8,8 @@ import rudy.exception;
 
 
 /* Wrapper class for Ruby/C API VALUE universal reference
- * 
+ *
+ * TODO: making it actually working and useful
  * TODO: exceptions
  * TODO: full implementation of converters etc.
  */
