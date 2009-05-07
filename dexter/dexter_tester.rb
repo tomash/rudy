@@ -93,6 +93,8 @@ class DexterTester < Test::Unit::TestCase
     assert_equal(DexterModule::convert_integer_two_ways(33), 33);
     assert_equal(DexterModule::convert_float_two_ways(45.67), 45.67);
     assert_equal(DexterModule::convert_string_two_ways("somestring"), "somestring");
+    assert_equal(DexterModule::convert_bool_two_ways(true), true);
+    assert_equal(DexterModule::convert_bool_two_ways(false), false);
   end
 
 end

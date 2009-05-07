@@ -193,7 +193,10 @@ T d_type(T) (VALUE val) {
     //normal string
     else static if (is(char[] : T)) {
         char* c_str = StringValuePtr(val);
-        char[] result = c_str[0..3];
+        //int length = 0;
+        //for(int i=0; (*c_str + i)!=0; ++i)
+        //  ++length;
+        char[] result = c_str[0..strlen(c_str)];
         return result.dup;
     }
     //complex numbers -- later
@@ -222,10 +225,10 @@ T d_type(T) (VALUE val) {
       return rb_num2long(result); 
     } 
     else static if (is(bool : T)) {
-      return val == Qnil;
+      return val == Qtrue;
     } 
     else {
-      // some error handling please?
+      // I can haz some error handling // fallback?
     }
 }
 
