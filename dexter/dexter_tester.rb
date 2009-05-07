@@ -20,7 +20,7 @@ class DexterTester < Test::Unit::TestCase
     d.add_strings_first_letter("tratatata")
     assert_equal([1,2, 22,"s","t"], d.arr)
   end
-  
+
   def test_class_and_to_ruby_val_methods
     d = DexterClass.new
     d.add_integer

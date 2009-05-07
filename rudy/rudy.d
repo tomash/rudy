@@ -16,3 +16,20 @@ public {
 
 }
 
+/* make D's GC work with C-oriented functions
+ * straight from PyD:
+ * http://dsource.org/projects/pyd/browser/trunk/infrastructure/d/python_so_linux_boilerplate.d
+ */
+extern(C) {
+  void gc_init();
+  void gc_term();
+  
+  void _init() {
+    gc_init();
+  }
+  
+  void _fini() {
+    gc_term();
+}
+
+} /* extern(C) */

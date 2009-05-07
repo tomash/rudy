@@ -6,24 +6,6 @@ import rudy.rudy;
 //only for debugging messages
 import std.stdio;
 
-/* make D's GC work with C-oriented functions
- * straight from PyD:
- * http://dsource.org/projects/pyd/browser/trunk/infrastructure/d/python_so_linux_boilerplate.d
- */
-extern(C) {
-  void gc_init();
-  void gc_term();
-  
-  void _init() {
-    gc_init();
-  }
-  
-  void _fini() {
-    gc_term();
-}
-
-} /* extern(C) */
-
 alias VALUE(*func_type)();
 extern (C) VALUE method_return_ten();
 extern (C) VALUE class_init();
@@ -178,8 +160,8 @@ extern (C) VALUE get_arr_first_and_square(VALUE self)
 
 extern (C) VALUE create_and_compare_two_equal_ruby_integers(VALUE self)
 {
-  RudyObject int1 = new RudyObject(rb_int2inum(10));
-  RudyObject int2 = new RudyObject(rb_int2inum(10));
+  auto int1 = new RudyObject(rb_int2inum(10));
+  auto int2 = new RudyObject(rb_int2inum(10));
   if(int1 == int2)
     return Qtrue;
   else
