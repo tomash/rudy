@@ -193,7 +193,7 @@ T d_type(T) (VALUE val) {
     //normal string
     else static if (is(char[] : T)) {
         char* c_str = StringValuePtr(val);
-        char[] result = c_str[0..c_str.length-1];
+        char[] result = c_str[0..3];
         return result.dup;
     }
     //complex numbers -- later

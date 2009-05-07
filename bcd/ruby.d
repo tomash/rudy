@@ -897,11 +897,24 @@ alias uint function(...) _BCD_func__1839;
 extern (C) uint rb_block_call(uint, uint, int, uint *, _BCD_func__1839, uint);
 extern (C) int vsnprintf(char *, uint, char *, char *);
 extern (C) void setbuf(_IO_FILE *, char *);
-extern (C) uint rb_str_intern(uint);
-extern (C) uint rb_string_value(uint *);
+
+extern (C) VALUE rb_str_to_str(VALUE);
+extern (C) uint rb_str_intern(VALUE);
+extern (C) uint rb_string_value(VALUE*);
+extern (C) char *rb_string_value_ptr(VALUE*);
+extern (C) char *rb_string_value_cstr(VALUE*);
+
 VALUE StringValue(VALUE obj)
 {
   return rb_string_value(&obj);
+}
+char* StringValuePtr(VALUE obj)
+{
+  return rb_string_value_ptr(&obj);
+}
+char* StringValueCStr(VALUE obj)
+{
+  return rb_string_value_cstr(&obj);
 }
 
 //(of course) obj here is a pointer to RString struct, not an actual integer
@@ -1062,7 +1075,6 @@ extern (C) void rb_p(uint);
 extern (C) uint rb_gc_start();
 extern (C) int clearenv();
 extern (C) _IO_FILE * tmpfile64();
-extern (C) char * rb_string_value_cstr(uint *);
 extern (C) char * mkdtemp(char *);
 extern (C) int pthread_rwlock_tryrdlock(pthread_rwlock_t *);
 extern (C) int pthread_mutex_getprioceiling(pthread_mutex_t *, int *);
@@ -1481,7 +1493,6 @@ extern (C) uint rb_mod_class_variables(uint);
 extern (C) uint rb_class_of(uint);
 extern (C) uint rb_quad_unpack(char *, int);
 extern (C) uint rb_reg_last_match(uint);
-extern (C) char * rb_string_value_ptr(uint *);
 extern (C) void rb_set_kcode(char *);
 extern (C) void rb_gc();
 extern (C) uint rb_range_new(uint, uint, int);

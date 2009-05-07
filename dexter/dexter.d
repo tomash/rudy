@@ -46,6 +46,9 @@ extern (C) VALUE class_add_complex();
 extern (C) VALUE class_add_array();
 extern (C) VALUE class_add_hash();
 extern (C) VALUE the_new_fifteen();
+extern (C) VALUE convert_integer_two_ways();
+extern (C) VALUE convert_float_two_ways();
+extern (C) VALUE convert_string_two_ways();
 extern (C) VALUE DexterClass = 0;
 extern (C) VALUE DexterModule = 0;
 
@@ -248,7 +251,23 @@ extern (C) VALUE the_new_fifteen(VALUE self) {
   return to_ruby_value(15);
 }
 
+extern (C) VALUE convert_integer_two_ways(VALUE self, VALUE obj)
+{
+  int n = d_type!(int)(obj);
+  return to_ruby_value(n);
+}
 
+extern (C) VALUE convert_float_two_ways(VALUE self, VALUE obj)
+{
+  double f = d_type!(double)(obj);
+  return to_ruby_value(f);
+}
+
+extern (C) VALUE convert_string_two_ways(VALUE self, VALUE obj)
+{
+  char[] s = d_type!(char[])(obj);
+  return to_ruby_value(s);
+}
 
 
 // The initialization method for this module
@@ -284,4 +303,12 @@ extern (C) void Init_dexter() {
   def!("DexterClass", the_new_fifteen);
   def!("DexterModule", the_new_fifteen);
   def!(the_new_fifteen);
+  
+  rb_define_module_function(DexterModule, "convert_integer_two_ways", &convert_integer_two_ways, 1);
+  rb_define_module_function(DexterModule, "convert_float_two_ways", &convert_float_two_ways, 1);
+  rb_define_module_function(DexterModule, "convert_string_two_ways", &convert_string_two_ways, 1);
+  
+  //def!("DexterModule", convert_integer_two_ways);
+  //def!("DexterModule", convert_float_two_ways);
+  //def!("DexterModule", convert_string_two_ways);
 }

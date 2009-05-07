@@ -88,5 +88,11 @@ class DexterTester < Test::Unit::TestCase
     assert_equal(DexterClass.new.the_new_fifteen, 15)
     assert_equal(the_new_fifteen, 15)
   end
+  
+  def test_two_way_conversion
+    assert_equal(DexterModule::convert_integer_two_ways(33), 33);
+    assert_equal(DexterModule::convert_float_two_ways(45.67), 45.67);
+    assert_equal(DexterModule::convert_string_two_ways("somestring"), "somestring");
+  end
 
 end
