@@ -11,6 +11,7 @@ Currently contains:
 * bcd - ruby.d converted from ruby.h using bcd.gen
 * rudy - current state of the library that's beyond the bindings
 * dexter - a playground application for testing and experimenting with (now) binding and (later) library
+* examples - small working code snippets for demonstrating RuDy features
 
 See README files in each of the subdirs for explanation and further info.
 
@@ -28,7 +29,9 @@ dexter_rubyd.d and associated files removed - this stuff isn't working for me (s
 
 == Getting Started (with your own code)
 
-Check out dexter directory, namely files dexter.d (using Rudy), dexter_tester.rb (unittests for what's implemented in dexter.d) and compile (how to compile the stuff as for now).
+You can find examples I've prepared for Euruko2009 conference in examples/ directory. They're microextensions (with microtests) demonstrating various features of RuDy.
+
+To see some more dirty code that I'm using to test all the new features, use Dexter. Check out dexter directory, namely files dexter.d (using Rudy), dexter_tester.rb (unittests for what's implemented in dexter.d) and compile (how to compile the stuff as for now).
 
 == Plans and aims
 
