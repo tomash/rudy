@@ -1,0 +1,4 @@
+#quick hack for compiling extension with ruby D files
+#version using bcd-generated .d files
+
+gdc -shared -o example4.so -g -g example4.d ../bcd/ruby.d ../rudy/rudy.d ../rudy/exception.d ../rudy/rudyobject.d ../rudy/lib_abstract.d ../rudy/make_object.d ../rudy/def.d -fPIC -lruby1.8 -L. -L/usr/lib -lm -lc -I../ -I/usr/include/d/ -nostartfiles
