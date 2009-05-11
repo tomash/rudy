@@ -17,15 +17,28 @@ See README files in each of the subdirs for explanation and further info.
 
 == Current state
 
-Bindings (bcd.ruby) working as far as current Dexter functionality and its test coverage is concerned.
+RuDy is ready to be used, although lacking some (many) features it needs to be called "1.0".
 
-Early state of RudyObject -- a class for references to Ruby objects (VALUEs) that wraps, convers and exposes these to D as D's native types.
+* Bindings (bcd.ruby) working as far as current Dexter functionality and its test coverage is concerned.
+* Early state of RudyObject -- a class for references to Ruby objects (VALUEs) that wraps, converts and allows some other magic. Barely usable (tiny feature set) at the moment.
+* d_type! template for converting Ruby VALUEs to native D types; opposite of to_ruby_value; working great, could use some new features (type support)
+* to_ruby_value -- opposite to d_type!, a function returning Ruby VALUEs from native D types (some D reflection goodness here); working like a charm, needs a bit of non-critical work (wrapping functions/delegates etc.)
+* def! template for automatically registering D methods into Ruby -- working with some cool features, but still lacks auto-wrapping/unwrapping passed arguments and return value
 
-to_ruby_value -- a function doing the opposite, i.e. returning Ruby VALUEs from native D types (some D reflection goodness here); needs a bit of non-critical work (wrapping functions/delegates etc.)
+== Limitations and areas for development
 
-def! macro for automatically registering D methods into Ruby -- working with some cool features, but still lacks auto-wrapping/unwrapping passed arguments and return value
+RuDy currently works on my 32bit Ubuntu, compiling D code with GDC. And that's basically what "compile" scripts were done for. It definitely needs some smart build system (Makefile/autoconf, extended ruby mkmf, D-based build system -- whatever will do the job) in order to start supporting other platforms.
 
-dexter_rubyd.d and associated files removed - this stuff isn't working for me (segfaulting at runtime/require time), so they're git-rm'ed.
+I'd like to focus primarly on supporting:
+* 64bit systems (bindings and VALUE need some work because of int size)
+* other Linux distros
+* Mac OSX
+
+Mostly because they could be all done without changing the compiler (GDC).
+
+RuDY would also welcome support for:
+* Windows (MinGW/GCC family)
+* different D compilers, especially LDC (LLVM D Compiler) as the most promising one
 
 == Getting Started (with your own code)
 
@@ -36,7 +49,7 @@ To see some more dirty code that I'm using to test all the new features, use Dex
 == Plans and aims
 
 1. Generate complete and working .d files (based on ruby.h) for writing Ruby extensions in D.
-2. Extend extconf.rb to recognize and generate makefiles (maybe also dsss config files) for extensions written in D.
+2. Extend mkmf.rb to recognize and generate makefiles (maybe also dsss config files) for extensions written in D. Or any other smart build system (check "limitations" section above)
 3. Create PyD (http://pyd.dsource.org/) equivalent for Ruby:
 * RudyObject
 * to_ruby_value
@@ -46,6 +59,8 @@ To see some more dirty code that I'm using to test all the new features, use Dex
 == Licensing
 
 The whole RuDy project is licensed under GNU LGPL (http://www.gnu.org/licenses/lgpl.html).
+
+If anyone finds the license too restrictive/viral, I'm open to suggestions and discussion.
 
 == Authors:
 * Tomasz Stachewicz - developer
