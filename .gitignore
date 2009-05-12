@@ -1,3 +1,7 @@
 *.so
 *.o
+*.a
+*.di
+*.swp
 doc/
+dsss_*
