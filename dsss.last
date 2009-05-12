@@ -1,4 +1,4 @@
-[rudy/rudy.d]
+[rudy/rudy]
 buildflags=-g -g -version=Rudy_with_Tango -I/usr/include/d -fPIC
 type=library
 shared
