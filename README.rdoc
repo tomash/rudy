@@ -58,9 +58,8 @@ To see some more dirty code that I'm using to test all the new features, use Dex
 
 == Licensing
 
-The whole RuDy project is licensed under GNU LGPL (http://www.gnu.org/licenses/lgpl.html).
+The whole RuDy project is licensed under Ruby / MIT license.
 
-If anyone finds the license too restrictive/viral, I'm open to suggestions and discussion.
 
 == Authors:
 * Tomasz Stachewicz - developer
